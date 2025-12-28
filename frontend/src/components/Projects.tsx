@@ -12,8 +12,37 @@ interface Project {
 }
 
 export default function Projects() {
-  // TODO: Add your projects here manually
-  const projects: Project[] = [];
+  const projects: Project[] = [
+  {
+    id: "notivos-ai",
+    title: "Notivos-AI",
+    description:
+      "Desktop note-taking application built using Electron.js with core CRUD, sorting, and search functionality. Integrated Google Gemini for AI-powered answering, summarization, and text-to-speech accessibility.",
+    technologies: [
+      "Electron.js",
+      "JavaScript",
+      "Google Gemini API",
+      "AI Integration",
+      "Desktop App"
+    ],
+    repositoryUrl: "https://github.com/laddasiddharth/Notivos-AI"
+  },
+  {
+    id: "adaptive-fl-compression",
+    title: "Adaptive Federated Learning with Compression",
+    description:
+      "Edge-computing system designed for low-latency local processing using CI-based decision logic. Implemented lightweight modules enabling efficient distributed computation with minimal cloud dependency.",
+    technologies: [
+      "Federated Learning",
+      "Edge Computing",
+      "Distributed Systems",
+      "Machine Learning",
+      "Compression Techniques"
+    ],
+    repositoryUrl: "https://github.com/laddasiddharth/Edge_Computing-Project"
+  }
+];
+
 
   return (
     <section id="projects" className="py-20">
@@ -22,9 +51,6 @@ export default function Projects() {
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Projects</h2>
             <div className="w-20 h-1 bg-gradient-to-r from-accent to-accent mx-auto rounded-full mb-4" />
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              A showcase of my academic and personal projects demonstrating my technical skills and problem-solving abilities.
-            </p>
           </div>
 
           {projects && projects.length > 0 ? (
@@ -46,7 +72,7 @@ export default function Projects() {
                       ))}
                     </div>
                   </div>
-                  <div className="px-6 py-4 flex gap-4 border-t border-border bg-muted/30">
+                  <div className="px-6 py-4 flex gap-4 justify-center border-t border-border bg-muted/30">
                     {project.liveDemoUrl && (
                       <a href={project.liveDemoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm font-medium hover:text-accent transition-colors">
                         <ExternalLink className="h-4 w-4" />

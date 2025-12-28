@@ -13,7 +13,7 @@
     "@react-three/fiber": "^8.15.16",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "framer-motion": "^10.16.8",
+    "framer-motion": "^12.23.26",
     "lucide-react": "^0.303.0",
     "ogl": "^1.0.11",
     "react": "^18.2.0",

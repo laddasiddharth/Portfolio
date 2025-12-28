@@ -47,7 +47,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           <button
             onClick={() => scrollToSection('hero')}
-            className="text-xl font-bold dark:bg-gradient-to-r dark:from-accent dark:to-accent dark:bg-clip-text dark:text-transparent text-white hover:opacity-80 transition-opacity drop-shadow-xl"
+            className="text-xl font-bold dark:bg-gradient-to-r dark:from-accent dark:to-accent dark:bg-clip-text dark:text-transparent text-gray-900 hover:opacity-80 transition-opacity drop-shadow-xl"
           >
             Siddharth Ladda
           </button>
@@ -58,7 +58,7 @@ export default function Header() {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="px-4 py-2 text-sm font-medium dark:text-white dark:hover:text-accent text-white hover:text-accent transition-colors rounded-md hover:bg-accent/50 drop-shadow-lg"
+                className="px-4 py-2 text-sm font-medium dark:text-white dark:hover:text-accent text-gray-900 hover:text-accent transition-colors rounded-md hover:bg-accent/50 drop-shadow-lg"
               >
                 {item.label}
               </button>
@@ -69,7 +69,7 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => setIsDark(!isDark)}
-              className="relative p-2 rounded-full hover:bg-accent/30 transition-colors flex items-center justify-center dark:hover:bg-accent/50 text-white dark:text-white drop-shadow-xl"
+              className="relative p-2 rounded-full hover:bg-accent/30 transition-colors flex items-center justify-center dark:hover:bg-accent/50 text-gray-900 dark:text-white drop-shadow-xl"
               title="Toggle theme"
             >
               <Sun className="h-5 w-5 dark:hidden" />
@@ -94,7 +94,7 @@ export default function Header() {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="block w-full text-left px-4 py-2 text-sm font-medium dark:text-white dark:hover:text-accent text-white hover:text-accent hover:bg-accent/50 rounded-md transition-colors drop-shadow-lg"
+                className="block w-full text-left px-4 py-2 text-sm font-medium dark:text-white dark:hover:text-accent text-gray-900 hover:text-accent hover:bg-accent/50 rounded-md transition-colors drop-shadow-lg"
               >
                 {item.label}
               </button>
