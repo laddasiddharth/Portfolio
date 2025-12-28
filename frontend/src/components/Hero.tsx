@@ -120,10 +120,10 @@ export default function Hero() {
                 </button>
                 <a
                   href="/assets/Resume.pdf"
-                  download
+                  target="_blank"
                   className="w-full sm:w-auto px-8 py-3 border-2 border-accent rounded-lg font-semibold text-foreground hover:bg-accent/10 transition-all flex items-center justify-center gap-2"
                 >
-                  Download Resume
+                  Resume
                 </a>
               </div>
 
