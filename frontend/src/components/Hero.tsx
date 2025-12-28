@@ -4,6 +4,31 @@ import { useState, useEffect } from 'react';
 export default function Hero() {
   const titles = ["Software Engineer", "AI Enthusiast", "Full-Stack Developer", "Explorer"];
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
+  const [greeting, setGreeting] = useState('');
+  const [timeOfDay, setTimeOfDay] = useState<'morning' | 'afternoon' | 'evening'>('morning');
+
+  useEffect(() => {
+    // Set greeting based on time
+    const updateGreeting = () => {
+      const hour = new Date().getHours();
+      if (hour >= 5 && hour < 12) {
+        setGreeting('Good Morning');
+        setTimeOfDay('morning');
+      } else if (hour >= 12 && hour < 18) {
+        setGreeting('Good Afternoon');
+        setTimeOfDay('afternoon');
+      } else {
+        setGreeting('Good Evening');
+        setTimeOfDay('evening');
+      }
+    };
+
+    updateGreeting();
+    // Update greeting every minute
+    const greetingInterval = setInterval(updateGreeting, 60000);
+
+    return () => clearInterval(greetingInterval);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,29 +52,43 @@ export default function Hero() {
     { icon: Mail, url: 'mailto:siddharthladda@gmail.com', label: 'Email' },
   ];
 
+  // Dynamic background gradients based on time of day
+  const backgroundGradients = {
+    morning: 'bg-gradient-to-br from-blue-50 via-pink-50 to-yellow-50 dark:from-blue-950/20 dark:via-pink-950/20 dark:to-yellow-950/20',
+    afternoon: 'bg-gradient-to-br from-orange-50 via-yellow-50 to-blue-50 dark:from-orange-950/20 dark:via-yellow-950/20 dark:to-blue-950/20',
+    evening: 'bg-gradient-to-br from-purple-100 via-blue-100 to-orange-100 dark:from-purple-950/30 dark:via-blue-950/30 dark:to-orange-950/30',
+  };
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden py-20"
+      className={`relative min-h-screen flex items-center justify-center overflow-hidden py-20 transition-all duration-1000 ${backgroundGradients[timeOfDay]}`}
     >
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto flex items-center justify-center min-h-[70vh]">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
-            {/* Profile Photo - Left Side */}
-            <div className="flex-shrink-0">
-              <div className="relative">
-                <div className="absolute inset-0 bg-accent rounded-full blur-2xl opacity-20 animate-pulse" />
-                <img
-                  src="/assets/photo.jpg"
-                  alt="Siddharth Ladda"
-                  className="relative rounded-full w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 object-cover object-bottom border-4 border-accent shadow-2xl"
-                />
-              </div>
-            </div>
+          <div className="flex flex-col items-center justify-center gap-8 w-full">
+            {/* Greeting - Above everything */}
+            <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground font-bold animate-fade-in text-center">
+              {greeting}!
+            </p>
 
-            {/* Content - Right Side */}
-            <div className="flex-1 text-center md:text-left space-y-6">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 w-full">
+              {/* Profile Photo - Left Side */}
+              <div className="flex-shrink-0">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-accent rounded-full blur-2xl opacity-20 animate-pulse" />
+                  <img
+                    src="/assets/photo.jpg"
+                    alt="Siddharth Ladda"
+                    className="relative rounded-full w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 object-cover object-bottom border-4 border-accent shadow-2xl"
+                  />
+                </div>
+              </div>
+
+              {/* Content - Right Side */}
+              <div className="flex-1 text-center md:text-left space-y-6">
+
               {/* Name */}
               <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight">
                 <span className="text-accent">Siddharth Ladda</span>
@@ -105,6 +144,7 @@ export default function Hero() {
                     </a>
                   );
                 })}
+              </div>
               </div>
             </div>
           </div>
