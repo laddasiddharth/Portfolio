@@ -12,7 +12,22 @@ interface Project {
 }
 
 export default function Projects() {
-  const projects: Project[] = [
+const projects: Project[] = [
+  {
+    id: "freshfetch",
+    title: "FreshFetch",
+    description:
+      "A modern grocery and essentials shopping web application featuring product listings, detailed views, cart functionality, and a clean, responsive UI built with React.",
+    technologies: [
+      "React",
+      "JavaScript",
+      "Tailwind CSS",
+      "Frontend Development",
+      "Web Application"
+    ],
+    liveDemoUrl: "https://fresh-fetch.vercel.app/",
+    repositoryUrl: "https://github.com/laddasiddharth/FreshFetch"
+  },
   {
     id: "notivos-ai",
     title: "Notivos-AI",
@@ -44,6 +59,7 @@ export default function Projects() {
 ];
 
 
+
   return (
     <section id="projects" className="py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -72,17 +88,27 @@ export default function Projects() {
                       ))}
                     </div>
                   </div>
-                  <div className="px-6 py-4 flex gap-4 justify-center border-t border-border bg-muted/30">
-                    {project.liveDemoUrl && (
-                      <a href={project.liveDemoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm font-medium hover:text-accent transition-colors">
-                        <ExternalLink className="h-4 w-4" />
-                        Demo
-                      </a>
-                    )}
+                  <div className="px-6 py-4 flex gap-3 items-center border-t border-border bg-muted/30">
                     {project.repositoryUrl && (
-                      <a href={project.repositoryUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm font-medium hover:text-accent transition-colors">
+                      <a 
+                        href={project.repositoryUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium border border-border rounded-lg hover:border-accent hover:text-accent transition-all duration-200 hover:shadow-md hover:scale-105"
+                      >
                         <Github className="h-4 w-4" />
                         Code
+                      </a>
+                    )}
+                    {project.liveDemoUrl && (
+                      <a 
+                        href={project.liveDemoUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent/90 transition-all duration-200 hover:shadow-md hover:scale-105"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        Demo
                       </a>
                     )}
                   </div>
