@@ -60,9 +60,9 @@ export default function Skills() {
             <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="flex flex-wrap justify-center gap-8">
             {skillCategories.map((category, idx) => (
-              <SpotlightCard key={idx} className="bg-card/50 backdrop-blur border border-border/50 rounded-xl p-8 hover:shadow-lg hover:border-accent/50 transition-all" spotlightColor="var(--spotlight-color-theme)">
+              <SpotlightCard key={idx} className="bg-card/50 backdrop-blur border border-border/50 rounded-xl p-8 hover:shadow-lg hover:border-accent/50 transition-all w-full md:w-[30%] min-w-[300px]" spotlightColor="var(--spotlight-color-theme)">
                 <h3 className="flex items-center gap-3 text-xl font-bold mb-6 text-foreground">
                   <div className="text-accent bg-accent/10 p-3 rounded-lg">{getIcon(category.icon)}</div>
                   {category.title}

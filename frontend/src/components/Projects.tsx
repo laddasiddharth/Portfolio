@@ -69,15 +69,17 @@ const projects: Project[] = [
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Glassmorphism Card Container */}
         <div className="max-w-6xl mx-auto bg-background/60 backdrop-blur-ultra rounded-3xl p-8 md:p-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Projects</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-accent to-accent mx-auto rounded-full mb-4" />
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+              Featured <span className="text-accent">Projects</span>
+            </h2>
+            <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
           </div>
 
           {projects && projects.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex flex-wrap justify-center gap-6">
               {projects.map((project) => (
-                <SpotlightCard key={project.id} className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-xl hover:border-accent/50 transition-all duration-300 flex flex-col" spotlightColor="var(--spotlight-color-theme)">
+                <SpotlightCard key={project.id} className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-xl hover:border-accent/50 transition-all duration-300 flex flex-col w-full md:w-[45%] lg:w-[30%] min-w-[300px]" spotlightColor="var(--spotlight-color-theme)">
                   <div className="p-6 flex-1">
                     <h3 className="text-lg font-bold mb-3 group-hover:text-accent transition-colors">
                       {project.title}

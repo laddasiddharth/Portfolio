@@ -68,11 +68,11 @@ export default function Education() {
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
               <GraduationCap className="h-8 w-8 text-accent" />
-              <h2 className="text-3xl sm:text-4xl font-bold">
+              <h2 className="text-4xl sm:text-5xl font-bold">
                 Education <span className="text-accent">Timeline</span>
               </h2>
             </div>
-            <div className="w-20 h-1 bg-gradient-to-r from-accent to-accent mx-auto rounded-full mb-4" />
+            <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
           </div>
 
           <div className="relative w-full overflow-clip">

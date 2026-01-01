@@ -28,8 +28,8 @@ export default function About() {
             <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <SpotlightCard className="bg-card/50 backdrop-blur border border-border/50 hover:border-accent/50 rounded-xl p-8 transition-all hover:shadow-lg" spotlightColor="var(--spotlight-color-theme)">
+          <div className="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
+            <SpotlightCard className="bg-card/50 backdrop-blur border border-border/50 hover:border-accent/50 rounded-xl p-8 transition-all hover:shadow-lg w-full md:w-[30%] min-w-[300px]" spotlightColor="var(--spotlight-color-theme)">
               <div className="flex items-center gap-3 mb-4">
                 <div className="bg-accent/10 p-3 rounded-lg">
                   <User className="h-6 w-6 text-accent" />
@@ -41,7 +41,7 @@ export default function About() {
               </p>
             </SpotlightCard>
 
-            <SpotlightCard className="bg-card/50 backdrop-blur border border-border/50 hover:border-accent/50 rounded-xl p-8 transition-all hover:shadow-lg" spotlightColor="var(--spotlight-color-theme)">
+            <SpotlightCard className="bg-card/50 backdrop-blur border border-border/50 hover:border-accent/50 rounded-xl p-8 transition-all hover:shadow-lg w-full md:w-[30%] min-w-[300px]" spotlightColor="var(--spotlight-color-theme)">
               <div className="flex items-center gap-3 mb-4">
                 <div className="bg-accent/10 p-3 rounded-lg">
                   <Target className="h-6 w-6 text-accent" />
@@ -53,7 +53,7 @@ export default function About() {
               </p>
             </SpotlightCard>
 
-            <SpotlightCard className="bg-card/50 backdrop-blur border border-border/50 hover:border-accent/50 rounded-xl p-8 transition-all hover:shadow-lg" spotlightColor="var(--spotlight-color-theme)">
+            <SpotlightCard className="bg-card/50 backdrop-blur border border-border/50 hover:border-accent/50 rounded-xl p-8 transition-all hover:shadow-lg w-full md:w-[30%] min-w-[300px]" spotlightColor="var(--spotlight-color-theme)">
               <div className="flex items-center gap-3 mb-4">
                 <div className="bg-accent/10 p-3 rounded-lg">
                   <Briefcase className="h-6 w-6 text-accent" />
