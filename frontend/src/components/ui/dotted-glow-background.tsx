@@ -44,8 +44,8 @@ type DottedGlowBackgroundProps = {
  */
 export const DottedGlowBackground = ({
   className,
-  gap = 12,
-  radius = 2,
+  gap = 10,
+  radius = 1.75,
   color = "rgba(0,0,0,0.7)",
   darkColor,
   glowColor = "rgba(0, 170, 255, 0.85)",
@@ -54,10 +54,10 @@ export const DottedGlowBackground = ({
   colorDarkVar,
   glowColorLightVar,
   glowColorDarkVar,
-  opacity = 0.6,
+  opacity = 1,
   backgroundOpacity = 0,
-  speedMin = 0.4,
-  speedMax = 1.3,
+  speedMin = 0.5,
+  speedMax = 1.6,
   speedScale = 1,
 }: DottedGlowBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -243,13 +243,16 @@ export const DottedGlowBackground = ({
         // Linear triangle wave 0..1..0 for linear glow/dim
         const mod = (time * d.speed + d.phase) % 2;
         const lin = mod < 1 ? mod : 2 - mod; // 0..1..0
-        const a = 0.25 + 0.55 * lin; // 0.25..0.8 linearly
+        
+        // Increased base opacity and range for better texture
+        const a = 0.4 + 0.6 * lin; // 0.4..1.0 linearly
 
         // draw glow when bright
         if (a > 0.6) {
           const glow = (a - 0.6) / 0.4; // 0..1
           ctx.shadowColor = resolvedGlowColor;
-          ctx.shadowBlur = 6 * glow;
+          // Tighter shadow blur for sharper look
+          ctx.shadowBlur = 4 * glow;
         } else {
           ctx.shadowColor = "transparent";
           ctx.shadowBlur = 0;
