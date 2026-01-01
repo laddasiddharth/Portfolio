@@ -15,7 +15,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gradient-to-t from-background to-card border-t border-border py-8">
+    <footer className="relative border-t border-border py-8 bg-gradient-to-t from-background to-card">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col items-center space-y-8">

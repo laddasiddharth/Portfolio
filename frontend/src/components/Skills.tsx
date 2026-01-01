@@ -1,4 +1,5 @@
 import { Code, Database, Zap, Brain, Wrench } from 'lucide-react';
+import SpotlightCard from './ui/SpotlightCard';
 
 interface SkillCategory {
   title: string;
@@ -45,9 +46,13 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-20 bg-muted/30">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+    <section id="skills" className="relative py-20">
+      {/* Semi-transparent overlay */}
+      <div className="absolute inset-0 bg-background/15 backdrop-blur-[0.5px]" />
+      
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Glassmorphism Card Container */}
+        <div className="max-w-6xl mx-auto bg-background/60 backdrop-blur-ultra rounded-3xl p-8 md:p-12">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
               Technical <span className="text-accent">Skills</span>
@@ -57,7 +62,7 @@ export default function Skills() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {skillCategories.map((category, idx) => (
-              <div key={idx} className="bg-card/50 backdrop-blur border border-border/50 rounded-xl p-8 hover:shadow-lg hover:border-accent/50 transition-all">
+              <SpotlightCard key={idx} className="bg-card/50 backdrop-blur border border-border/50 rounded-xl p-8 hover:shadow-lg hover:border-accent/50 transition-all" spotlightColor="var(--spotlight-color-theme)">
                 <h3 className="flex items-center gap-3 text-xl font-bold mb-6 text-foreground">
                   <div className="text-accent bg-accent/10 p-3 rounded-lg">{getIcon(category.icon)}</div>
                   {category.title}
@@ -69,7 +74,7 @@ export default function Skills() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </SpotlightCard>
             ))}
           </div>
         </div>

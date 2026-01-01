@@ -9,9 +9,13 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-32 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+    <section id="contact" className="relative py-32">
+      {/* Semi-transparent overlay */}
+      <div className="absolute inset-0 bg-background/15 backdrop-blur-[0.5px]" />
+      
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Glassmorphism Card Container */}
+        <div className="max-w-4xl mx-auto bg-background/60 backdrop-blur-ultra rounded-3xl p-8 md:p-12">
           {/* Header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-6xl font-bold mb-6">

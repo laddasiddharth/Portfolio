@@ -37,9 +37,21 @@
     --sidebar-accent-foreground: 0.15 0 0;
     --sidebar-border: 0.88 0.02 264;
     --sidebar-ring: 0.55 0.22 264;
+    
+    /* Neutral colors for dotted background - light mode (increased opacity) */
+    --color-neutral-400: rgba(100, 100, 100, 0.9);
+    --color-neutral-500: rgba(60, 60, 60, 0.95);
+    --color-neutral-600: rgba(40, 40, 40, 1);
+    --color-primary: oklch(var(--primary));
+    
+    /* Spotlight Color - Light Mode (Purple tint) */
+    --spotlight-color-theme: rgba(124, 58, 237, 0.1);
   }
 
   .dark {
+    /* Spotlight Color - Dark Mode (White tint) */
+    --spotlight-color-theme: rgba(255, 255, 255, 0.25);
+    
     --background: 0.08 0.008 264;
     --foreground: 0.98 0.008 264;
     --card: 0.12 0.01 264;
@@ -72,6 +84,12 @@
     --sidebar-accent-foreground: 0.95 0.02 264;
     --sidebar-border: 0.25 0.03 264;
     --sidebar-ring: 0.65 0.22 264;
+    
+    /* Neutral colors for dotted background - dark mode (increased opacity) */
+    --color-neutral-400: rgba(180, 180, 180, 0.7);
+    --color-neutral-500: rgba(200, 200, 200, 0.8);
+    --color-neutral-600: rgba(240, 240, 240, 0.9);
+    --color-primary: oklch(var(--primary));
   }
 
   * {
@@ -236,4 +254,43 @@ html.lenis body {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
+}
+
+/* Custom ultra-blur for perfect portrait glassmorphism */
+.backdrop-blur-ultra {
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+}
+
+/* Spotlight Card Effect */
+.card-spotlight {
+  position: relative;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: rgba(255, 255, 255, 0.05);
+}
+
+.card-spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 80%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card-spotlight:hover::before,
+.card-spotlight:focus-within::before {
+  opacity: 0.6;
+}
+
+.card-spotlight > * {
+  position: relative;
+  z-index: 1;
 }

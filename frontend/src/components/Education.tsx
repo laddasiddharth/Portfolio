@@ -1,12 +1,13 @@
 import { GraduationCap } from 'lucide-react';
 import { Timeline } from './ui/Timeline';
+import SpotlightCard from './ui/SpotlightCard';
 
 export default function Education() {
   const educationData = [
     {
       title: "2023 - 2027",
       content: (
-        <div className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-accent/50 transition-all">
+        <SpotlightCard className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-accent/50 transition-all" spotlightColor="var(--spotlight-color-theme)">
           <div className="mb-4">
             <h3 className="text-xl font-semibold text-foreground mb-2">
               Undergraduation
@@ -18,13 +19,13 @@ export default function Education() {
               B.Tech in Computer Science & Engineering
             </p>
           </div>
-        </div>
+        </SpotlightCard>
       ),
     },
     {
       title: "2021 - 2023",
       content: (
-        <div className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-accent/50 transition-all">
+        <SpotlightCard className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-accent/50 transition-all" spotlightColor="var(--spotlight-color-theme)">
           <div className="mb-4">
             <h3 className="text-xl font-semibold text-foreground mb-2">
               Higher Secondary Education (12th Grade)
@@ -36,13 +37,13 @@ export default function Education() {
               Science Stream - Physics, Chemistry, Mathematics
             </p>
           </div>
-        </div>
+        </SpotlightCard>
       ),
     },
     {
       title: "2019 - 2021",
       content: (
-        <div className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-accent/50 transition-all">
+        <SpotlightCard className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-accent/50 transition-all" spotlightColor="var(--spotlight-color-theme)">
           <div className="mb-4">
             <h3 className="text-xl font-semibold text-foreground mb-2">
               Secondary Education (10th Grade)
@@ -51,15 +52,19 @@ export default function Education() {
               Platinum Jubilee High School, Warangal
             </p>
           </div>
-        </div>
+        </SpotlightCard>
       ),
     },
   ];
 
   return (
-    <section id="education" className="py-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+    <section id="education" className="relative py-20">
+      {/* Semi-transparent overlay - reduced for better background visibility */}
+      <div className="absolute inset-0 bg-background/15 backdrop-blur-[0.5px]" />
+      
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Glassmorphism Card Container */}
+        <div className="max-w-7xl mx-auto bg-background/60 backdrop-blur-ultra rounded-3xl p-8 md:p-12">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
               <GraduationCap className="h-8 w-8 text-accent" />

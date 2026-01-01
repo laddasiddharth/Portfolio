@@ -1,4 +1,5 @@
 import { ExternalLink, Github } from 'lucide-react';
+import SpotlightCard from './ui/SpotlightCard';
 
 interface Project {
   id: string;
@@ -61,9 +62,13 @@ const projects: Project[] = [
 
 
   return (
-    <section id="projects" className="py-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+    <section id="projects" className="relative py-20">
+      {/* Semi-transparent overlay */}
+      <div className="absolute inset-0 bg-background/10 backdrop-blur-[0.5px]" />
+      
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Glassmorphism Card Container */}
+        <div className="max-w-6xl mx-auto bg-background/60 backdrop-blur-ultra rounded-3xl p-8 md:p-12">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Projects</h2>
             <div className="w-20 h-1 bg-gradient-to-r from-accent to-accent mx-auto rounded-full mb-4" />
@@ -72,7 +77,7 @@ const projects: Project[] = [
           {projects && projects.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projects.map((project) => (
-                <div key={project.id} className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-xl hover:border-accent/50 transition-all duration-300 flex flex-col">
+                <SpotlightCard key={project.id} className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-xl hover:border-accent/50 transition-all duration-300 flex flex-col" spotlightColor="var(--spotlight-color-theme)">
                   <div className="p-6 flex-1">
                     <h3 className="text-lg font-bold mb-3 group-hover:text-accent transition-colors">
                       {project.title}
@@ -112,7 +117,7 @@ const projects: Project[] = [
                       </a>
                     )}
                   </div>
-                </div>
+                </SpotlightCard>
               ))}
             </div>
           ) : (

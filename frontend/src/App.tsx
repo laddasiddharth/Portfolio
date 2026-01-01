@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import Lenis from 'lenis';
+import { DottedGlowBackground } from './components/ui/dotted-glow-background';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -37,17 +38,38 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative">
-      <Header />
-      <main>
-        <Hero />
-        <About />
-        <Education />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+      {/* Dotted Glow Background - Fixed across entire page */}
+      <div className="fixed inset-0 z-0">
+        <DottedGlowBackground
+          className="pointer-events-none"
+          opacity={0.8}
+          gap={16}
+          radius={1.5}
+          colorLightVar="--color-neutral-500"
+          glowColorLightVar="--color-primary"
+          colorDarkVar="--color-neutral-600"
+          glowColorDarkVar="--color-primary"
+          backgroundOpacity={0}
+          speedMin={0.2}
+          speedMax={0.8}
+          speedScale={1}
+        />
+      </div>
+
+      {/* Content - Above background */}
+      <div className="relative z-10">
+        <Header />
+        <main>
+          <Hero />
+          <About />
+          <Education />
+          <Skills />
+          <Projects />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }
