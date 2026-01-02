@@ -85,7 +85,7 @@ export default function Header() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-black/20 dark:bg-background/40 backdrop-blur-xl"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background dark:bg-background backdrop-blur-xl"
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:grid md:grid-cols-3">
@@ -104,8 +104,8 @@ export default function Header() {
                 onClick={() => scrollToSection(item.id)}
                 className={`px-4 py-2 text-sm font-medium transition-colors rounded-md drop-shadow-lg ${
                   activeSection === item.id
-                    ? 'dark:text-accent text-accent bg-accent/30 dark:bg-accent/30'
-                    : 'dark:text-white dark:hover:text-accent text-gray-900 hover:text-accent hover:bg-accent/50'
+                    ? 'dark:text-white text-white bg-accent/30 dark:bg-accent/30'
+                    : 'dark:text-white dark:hover:text-white text-gray-900 hover:text-white hover:bg-accent/50'
                 }`}
               >
                 {item.label}
@@ -120,8 +120,8 @@ export default function Header() {
               className="relative p-2 rounded-full hover:bg-accent/30 transition-colors flex items-center justify-center dark:hover:bg-accent/50 text-gray-900 dark:text-white drop-shadow-xl"
               title="Toggle theme"
             >
-              <Sun className="h-5 w-5 dark:hidden" />
-              <Moon className="h-5 w-5 hidden dark:block" />
+              <Sun className="h-5 w-5 hidden dark:block" />
+              <Moon className="h-5 w-5 dark:hidden" />
               <span className="sr-only">Toggle theme</span>
             </button>
 
@@ -144,8 +144,8 @@ export default function Header() {
                 onClick={() => scrollToSection(item.id)}
                 className={`block w-full text-left px-4 py-2 text-sm font-medium rounded-md transition-colors drop-shadow-lg ${
                   activeSection === item.id
-                    ? 'dark:text-accent text-accent bg-accent/30 dark:bg-accent/30'
-                    : 'dark:text-white dark:hover:text-accent text-gray-900 hover:text-accent hover:bg-accent/50'
+                    ? 'dark:text-white text-white bg-accent/30 dark:bg-accent/30'
+                    : 'dark:text-white dark:hover:text-white text-gray-900 hover:text-white hover:bg-accent/50'
                 }`}
               >
                 {item.label}
