@@ -74,72 +74,75 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
               <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-background flex items-center justify-center">
                 <div 
-                  className={`h-4 w-4 rounded-full border p-2 transition-all duration-500 ${
-                    hoveredIndex === index 
-                      ? 'bg-accent border-accent scale-[2] shadow-[0_0_30px_10px_rgba(168,85,247,0.6)] ring-4 ring-accent/30' 
-                      : (() => {
-                          // Check if this item has reached viewport center
-                          if (!itemRefs.current[index]) return 'bg-muted border-border';
-                          const rect = itemRefs.current[index]!.getBoundingClientRect();
-                          const viewportCenter = window.innerHeight / 2;
-                          const itemTop = rect.top;
-                          const itemBottom = rect.bottom;
-                          
-                          // Item is active when it's crossing the viewport center
-                          const isAtCenter = itemTop <= viewportCenter && itemBottom >= viewportCenter;
-                          
-                          return isAtCenter
-                            ? 'bg-accent border-accent shadow-lg shadow-accent/50 scale-125' 
-                            : 'bg-muted border-border';
-                        })()
-                  }`} 
-                />
-              </div>
-              <h3 
-                className={`hidden md:block text-xl md:pl-20 md:text-5xl font-bold drop-shadow-lg transition-all duration-500 ${
-                  hoveredIndex === index 
-                    ? 'text-accent scale-110 drop-shadow-[0_0_20px_rgba(168,85,247,0.8)]' 
-                    : (() => {
-                        // Check if this item has reached viewport center
-                        if (!itemRefs.current[index]) return 'text-foreground';
-                        const rect = itemRefs.current[index]!.getBoundingClientRect();
-                        const viewportCenter = window.innerHeight / 2;
-                        const itemTop = rect.top;
-                        const itemBottom = rect.bottom;
-                        
-                        const isAtCenter = itemTop <= viewportCenter && itemBottom >= viewportCenter;
-                        
-                        return isAtCenter
-                          ? 'text-accent scale-105 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]'
-                          : 'text-foreground';
-                      })()
-                }`}
-              >
-                {item.title}
-              </h3>
+                className={`h-4 w-4 rounded-full border p-2 transition-all duration-500 ${
+                  (() => {
+                    if (!itemRefs.current[index]) return 'bg-muted border-border opacity-50';
+                    const rect = itemRefs.current[index]!.getBoundingClientRect();
+                    const viewportCenter = window.innerHeight / 2;
+                    const itemTop = rect.top;
+                    const itemBottom = rect.bottom;
+                    
+                    const isAtCenter = itemTop <= viewportCenter && itemBottom >= viewportCenter;
+                    
+                    if (isAtCenter) {
+                      return hoveredIndex === index 
+                        ? 'bg-accent border-accent scale-[2] shadow-[0_0_30px_10px_rgba(168,85,247,0.6)] ring-4 ring-accent/30'
+                        : 'bg-accent border-accent shadow-lg shadow-accent/50 scale-125';
+                    }
+                    
+                    return 'bg-muted border-border opacity-50';
+                  })()
+                }`} 
+              />
             </div>
+            <h3 
+              className={`hidden md:block text-xl md:pl-20 md:text-5xl font-bold drop-shadow-lg transition-all duration-500 ${
+                (() => {
+                  if (!itemRefs.current[index]) return 'text-muted-foreground opacity-50';
+                  const rect = itemRefs.current[index]!.getBoundingClientRect();
+                  const viewportCenter = window.innerHeight / 2;
+                  const itemTop = rect.top;
+                  const itemBottom = rect.bottom;
+                  
+                  const isAtCenter = itemTop <= viewportCenter && itemBottom >= viewportCenter;
+                  
+                  if (isAtCenter) {
+                    return hoveredIndex === index 
+                      ? 'text-accent scale-110 drop-shadow-[0_0_20px_rgba(168,85,247,0.8)] opacity-100'
+                      : 'text-accent scale-105 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)] opacity-100';
+                  }
+                  
+                  return 'text-muted-foreground opacity-50';
+                })()
+              }`}
+            >
+              {item.title}
+            </h3>
+          </div>
 
-            <div className="relative pl-20 pr-4 md:pl-4 w-full">
-              <h3 
-                className={`md:hidden block text-2xl mb-4 text-left font-bold drop-shadow-lg transition-all duration-500 ${
-                  hoveredIndex === index 
-                    ? 'text-accent scale-110 drop-shadow-[0_0_20px_rgba(168,85,247,0.8)]' 
-                    : (() => {
-                        if (!itemRefs.current[index]) return 'text-foreground';
-                        const rect = itemRefs.current[index]!.getBoundingClientRect();
-                        const viewportCenter = window.innerHeight / 2;
-                        const itemTop = rect.top;
-                        const itemBottom = rect.bottom;
-                        
-                        const isAtCenter = itemTop <= viewportCenter && itemBottom >= viewportCenter;
-                        
-                        return isAtCenter
-                          ? 'text-accent scale-105 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]'
-                          : 'text-foreground';
-                      })()
-                }`}
-              >
-                {item.title}
+          <div className="relative pl-20 pr-4 md:pl-4 w-full">
+            <h3 
+              className={`md:hidden block text-2xl mb-4 text-left font-bold drop-shadow-lg transition-all duration-500 ${
+                (() => {
+                  if (!itemRefs.current[index]) return 'text-muted-foreground opacity-50';
+                  const rect = itemRefs.current[index]!.getBoundingClientRect();
+                  const viewportCenter = window.innerHeight / 2;
+                  const itemTop = rect.top;
+                  const itemBottom = rect.bottom;
+                  
+                  const isAtCenter = itemTop <= viewportCenter && itemBottom >= viewportCenter;
+                  
+                  if (isAtCenter) {
+                    return hoveredIndex === index 
+                      ? 'text-accent scale-110 drop-shadow-[0_0_20px_rgba(168,85,247,0.8)] opacity-100'
+                      : 'text-accent scale-105 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)] opacity-100';
+                  }
+                  
+                  return 'text-muted-foreground opacity-50';
+                })()
+              }`}
+            >
+              {item.title}
               </h3>
               <div className={`transition-all duration-500 ${
                 (() => {
