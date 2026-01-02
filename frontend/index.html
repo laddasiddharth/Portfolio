@@ -1,8 +1,19 @@
-<html lang='en' class='dark'>
+<html lang='en'>
     <head>
         <meta charset='UTF-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-        <title>Portfolio</title>
+        <title>Siddharth Ladda</title>
+        <script>
+            // Set theme before page renders to prevent flash
+            (function() {
+                const theme = localStorage.getItem('theme') || 'dark';
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            })();
+        </script>
     </head>
     <body>
         <div id='root'></div>

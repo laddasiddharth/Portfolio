@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
-import { DottedGlowBackground } from './components/ui/dotted-glow-background';
+import { BackgroundPaths } from './components/ui/background-paths';
+import LoadingScreen from './components/LoadingScreen';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -11,16 +12,30 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
+
   useEffect(() => {
-    // Initialize Lenis
+    // Show content 1 second after loading completes
+    if (!isLoading) {
+      const timer = setTimeout(() => {
+        setShowContent(true);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
+  useEffect(() => {
+    // Initialize Lenis with optimized settings for smooth timeline animation
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.5,
+      easing: (t) => 1 - Math.pow(1 - t, 3), // Cubic easing for smoother deceleration
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
+      touchMultiplier: 2,
       infinite: false,
+      syncTouch: true,
     });
 
     // Animation frame loop
@@ -38,39 +53,37 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
-      {/* Dotted Glow Background - Fixed across entire page */}
-      <div className="fixed inset-0 z-0">
-        <DottedGlowBackground
-          className="pointer-events-none"
-          opacity={0.8}
-          gap={16}
-          radius={1.5}
-          colorLightVar="--color-neutral-500"
-          glowColorLightVar="--color-primary"
-          colorDarkVar="--color-neutral-600"
-          glowColorDarkVar="--color-primary"
-          backgroundOpacity={0}
-          speedMin={0.2}
-          speedMax={0.8}
-          speedScale={1}
-        />
+    <>
+      {isLoading && <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />}
+      
+      <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+        {/* Circuit Board Background - Fixed across entire page - Dark mode only */}
+      <div className="fixed inset-0 z-0 hidden dark:block">
+        <BackgroundPaths
+          className="pointer-events-none h-full"
+          svgOptions={{ duration: 8 }}
+        >
+          <></>
+        </BackgroundPaths>
       </div>
 
       {/* Content - Above background */}
-      <div className="relative z-10">
-        <Header />
-        <main>
-          <Hero />
-          <About />
-          <Education />
-          <Skills />
-          <Projects />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
+      {showContent && (
+        <div className="relative z-10 animate-fade-in">
+          <Header />
+          <main>
+            <Hero />
+            <About />
+            <Education />
+            <Skills />
+            <Projects />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
+      )}
     </div>
+    </>
   );
 }
 

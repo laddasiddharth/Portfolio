@@ -64,7 +64,7 @@ export default function Education() {
       
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Glassmorphism Card Container */}
-        <div className="max-w-7xl mx-auto bg-background/60 backdrop-blur-ultra rounded-3xl p-8 md:p-12">
+        <div className="max-w-7xl mx-auto bg-background border border-gray-200 dark:border-transparent shadow-lg dark:shadow-none backdrop-blur-ultra rounded-3xl p-6 md:p-10">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
               <GraduationCap className="h-8 w-8 text-accent" />

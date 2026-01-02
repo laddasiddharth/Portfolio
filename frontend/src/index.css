@@ -37,13 +37,9 @@
     --sidebar-accent-foreground: 0.15 0 0;
     --sidebar-border: 0.88 0.02 264;
     --sidebar-ring: 0.55 0.22 264;
-    
-    /* Neutral colors for dotted background - light mode (increased opacity) */
-    --color-neutral-400: rgba(100, 100, 100, 0.9);
-    --color-neutral-500: rgba(60, 60, 60, 0.95);
-    --color-neutral-600: rgba(40, 40, 40, 1);
+
     --color-primary: oklch(var(--primary));
-    
+
     /* Spotlight Color - Light Mode (Purple tint) */
     --spotlight-color-theme: rgba(124, 58, 237, 0.1);
   }
@@ -51,7 +47,7 @@
   .dark {
     /* Spotlight Color - Dark Mode (White tint) */
     --spotlight-color-theme: rgba(255, 255, 255, 0.25);
-    
+
     --background: 0.08 0.008 264;
     --foreground: 0.98 0.008 264;
     --card: 0.12 0.01 264;
@@ -84,11 +80,6 @@
     --sidebar-accent-foreground: 0.95 0.02 264;
     --sidebar-border: 0.25 0.03 264;
     --sidebar-ring: 0.65 0.22 264;
-    
-    /* Neutral colors for dotted background - dark mode (increased opacity) */
-    --color-neutral-400: rgba(180, 180, 180, 0.7);
-    --color-neutral-500: rgba(200, 200, 200, 0.8);
-    --color-neutral-600: rgba(240, 240, 240, 0.9);
     --color-primary: oklch(var(--primary));
   }
 
@@ -141,6 +132,49 @@
 
 .animate-fade-in {
   animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fillDown {
+  from {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  to {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+.animate-fillDown {
+  animation: fillDown 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Highlight active education items */
+.highlight-active {
+  transform: scale(1.05);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.highlight-active > div {
+  border-color: oklch(var(--accent)) !important;
+  box-shadow: 0 0 30px 5px rgba(168, 85, 247, 0.4),
+              0 10px 40px -10px rgba(168, 85, 247, 0.3) !important;
+  background: oklch(var(--card) / 0.95) !important;
+  transition: all 0.5s ease;
+}
+
+.highlight-active h3 {
+  color: oklch(var(--accent));
+  transition: color 0.5s ease;
+}
+
+.highlight-active p {
+  transition: color 0.5s ease;
+}
+
+.highlight-active p:first-of-type {
+  color: oklch(var(--accent));
+  font-weight: 600;
 }
 
 /* Enhanced button styles */
@@ -272,13 +306,17 @@ html.lenis body {
 }
 
 .card-spotlight::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 80%);
+  background: radial-gradient(
+    circle at var(--mouse-x) var(--mouse-y),
+    var(--spotlight-color),
+    transparent 80%
+  );
   opacity: 0;
   transition: opacity 0.5s ease;
   pointer-events: none;
