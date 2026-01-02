@@ -18,12 +18,12 @@ export default function LoadingScreen({ onLoadingComplete }: { onLoadingComplete
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(onLoadingComplete, 300);
+          setTimeout(onLoadingComplete, 150);
           return 100;
         }
-        return prev + 4;
+        return prev + 5;
       });
-    }, 60);
+    }, 30);
 
     return () => clearInterval(interval);
   }, [onLoadingComplete]);
@@ -39,20 +39,7 @@ export default function LoadingScreen({ onLoadingComplete }: { onLoadingComplete
         transition={{ duration: 0.5 }}
       >
         {/* Logo or Name */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-8"
-        >
-          <h1 className={`text-5xl md:text-7xl font-bold bg-clip-text text-transparent drop-shadow-lg ${
-            isDark 
-              ? 'bg-gradient-to-r from-accent via-primary to-accent' 
-              : 'bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600'
-          }`}>
-            Siddharth Ladda
-          </h1>
-        </motion.div>
+
 
         {/* Progress Bar */}
         <div className={`w-64 md:w-96 h-2 rounded-full overflow-hidden shadow-inner ${

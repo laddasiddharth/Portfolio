@@ -20,7 +20,7 @@ function App() {
     if (!isLoading) {
       const timer = setTimeout(() => {
         setShowContent(true);
-      }, 1000);
+      }, 150);
       return () => clearTimeout(timer);
     }
   }, [isLoading]);
