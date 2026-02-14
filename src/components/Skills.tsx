@@ -17,12 +17,12 @@ export default function Skills() {
     {
       title: 'Web Development',
       icon: 'Zap',
-      skills: ['React', 'React Native', 'Next.js', 'HTML', 'CSS', 'Tailwind CSS']
+      skills: ['React', 'Next.js', 'HTML', 'CSS', 'Tailwind CSS']
     },
     {
       title: 'Backend & Databases',
       icon: 'Database',
-      skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Node.js', 'Express.js', 'Django']
+      skills: ['MySQL', 'MongoDB', 'Node.js', 'Express.js']
     },
     {
       title: 'AI / ML',
@@ -32,7 +32,7 @@ export default function Skills() {
     {
       title: 'Tools & Platforms',
       icon: 'Wrench',
-      skills: ['Git', 'Docker', 'Linux', 'VS Code', 'Postman']
+      skills: ['Git', 'Linux', 'VS Code', 'Postman']
     }
   ];
 

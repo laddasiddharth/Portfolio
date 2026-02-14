@@ -121,7 +121,7 @@ export default function Hero() {
                     <ArrowDown className="h-4 w-4" />
                   </button>
                   <a
-                    href="/assets/Resume.pdf"
+                    href="/assets/Siddharth_Ladda_Resume.pdf"
                     target="_blank"
                     className="w-full sm:w-auto px-8 py-3 border-2 border-accent rounded-lg font-semibold text-foreground hover:bg-accent/10 transition-all flex items-center justify-center gap-2"
                   >

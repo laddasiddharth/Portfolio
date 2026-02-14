@@ -15,19 +15,18 @@ interface Project {
 export default function Projects() {
 const projects: Project[] = [
   {
-    id: "freshfetch",
-    title: "FreshFetch",
+    id: "adaptive-fl-compression",
+    title: "Adaptive Federated Learning with Compression",
     description:
-      "A modern grocery and essentials shopping web application featuring product listings, detailed views, cart functionality, and a clean, responsive UI built with React.",
+      "Edge-computing system designed for low-latency local processing using CI-based decision logic. Implemented lightweight modules enabling efficient distributed computation with minimal cloud dependency.",
     technologies: [
-      "React",
-      "JavaScript",
-      "Tailwind CSS",
-      "Frontend Development",
-      "Web Application"
+      "Federated Learning",
+      "Edge Computing",
+      "Distributed Systems",
+      "Machine Learning",
+      "Compression Techniques"
     ],
-    liveDemoUrl: "https://fresh-fetch.vercel.app/",
-    repositoryUrl: "https://github.com/laddasiddharth/FreshFetch"
+    repositoryUrl: "https://github.com/laddasiddharth/Edge_Computing-Project"
   },
   {
     id: "notivos-ai",
@@ -44,18 +43,47 @@ const projects: Project[] = [
     repositoryUrl: "https://github.com/laddasiddharth/Notivos-AI"
   },
   {
-    id: "adaptive-fl-compression",
-    title: "Adaptive Federated Learning with Compression",
+    id: "spam-email-detection",
+    title: "Spam Email Detection",
     description:
-      "Edge-computing system designed for low-latency local processing using CI-based decision logic. Implemented lightweight modules enabling efficient distributed computation with minimal cloud dependency.",
+      "Machine learning-powered spam detection system using Natural Language Processing and classification algorithms. Features real-time email analysis, high accuracy spam filtering, and comprehensive model evaluation metrics.",
     technologies: [
-      "Federated Learning",
-      "Edge Computing",
-      "Distributed Systems",
+      "Python",
       "Machine Learning",
-      "Compression Techniques"
+      "NLP",
+      "Scikit-learn",
+      "Data Analysis"
     ],
-    repositoryUrl: "https://github.com/laddasiddharth/Edge_Computing-Project"
+    repositoryUrl: "https://github.com/laddasiddharth/Spam-Email-Detection"
+  },
+  {
+    id: "gradeai-student-predictor",
+    title: "GradeAI Student Predictor",
+    description:
+      "AI-driven student performance prediction system that analyzes academic data to forecast student grades. Utilizes regression models and data visualization to provide insights into factors affecting academic success.",
+    technologies: [
+      "Python",
+      "Machine Learning",
+      "Pandas",
+      "Scikit-learn",
+      "Data Visualization"
+    ],
+    repositoryUrl: "https://github.com/laddasiddharth/GradeAI-Student-Predictor"
+  },
+  {
+    id: "freshfetch",
+    title: "FreshFetch",
+    description:
+      "A modern grocery and essentials shopping web application featuring product listings, detailed views, cart functionality, and a clean, responsive UI built with React.",
+    technologies: [
+      "React",
+      "JavaScript",
+      "Tailwind CSS",
+      "Frontend Development",
+      "Web Application"
+    ],
+    liveDemoUrl: "https://fresh-fetch.vercel.app/",
+    repositoryUrl: "https://github.com/laddasiddharth/FreshFetch"
   }
 ];
 
@@ -84,7 +112,7 @@ const projects: Project[] = [
                     <h3 className="text-lg font-bold mb-3 group-hover:text-accent transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                    <p className="text-sm text-muted-foreground mb-4">
                       {project.description}
                     </p>
                     <div className="flex flex-wrap gap-2">
