@@ -44,6 +44,8 @@
     --spotlight-color-theme: rgba(124, 58, 237, 0.1);
 
     /* Dotted Glow Background Colors - Light Mode */
+    --color-dot-base: 156, 163, 175;
+    --color-dot-active: 190, 118, 255;
     --color-purple-400: 216, 180, 254;
     --color-purple-500: 233, 213, 255;
   }
@@ -53,6 +55,8 @@
     --spotlight-color-theme: rgba(255, 255, 255, 0.25);
 
     /* Dotted Glow Background Colors - Dark Mode */
+    --color-dot-base: 107, 114, 128;
+    --color-dot-active: 192, 132, 252;
     --color-purple-400: 192, 132, 252;
     --color-purple-500: 168, 85, 247;
 
@@ -122,12 +126,61 @@
 
   /* Dotted Background Pattern */
   .bg-dotted {
-    background-image: radial-gradient(circle, rgba(147, 51, 234, 0.35) 2.5px, transparent 2.5px);
-    background-size: 20px 20px;
+    position: relative;
+    overflow: hidden;
   }
 
-  .dark .bg-dotted {
-    background-image: radial-gradient(circle, rgba(168, 85, 247, 0.5) 2.5px, transparent 2.5px);
+  .bg-dotted::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(var(--color-dot-base), 0.55) 2.5px, transparent 2.5px);
+    background-size: 20px 20px;
+    opacity: 0.9;
+  }
+
+  .bg-dotted::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(var(--color-dot-active), 0.95) 2.7px, transparent 2.7px);
+    background-size: 20px 20px;
+    opacity: 0.95;
+    filter: drop-shadow(0 0 10px rgba(var(--color-dot-active), 0.35));
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.08) 10%,
+      rgba(0, 0, 0, 0.85) 35%,
+      rgba(0, 0, 0, 1) 50%,
+      rgba(0, 0, 0, 0.85) 65%,
+      rgba(0, 0, 0, 0.08) 90%,
+      transparent 100%
+    );
+    mask-size: 28% 100%;
+    mask-repeat: no-repeat;
+    will-change: mask-position, filter;
+    animation: dottedSweep 3.8s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-dotted::after {
+      opacity: 1;
+      animation: none;
+      filter: none;
+      mask-image: none;
+    }
+  }
+}
+
+@keyframes dottedSweep {
+  0% {
+    mask-position: -40% 0;
+    filter: drop-shadow(0 0 8px rgba(var(--color-dot-active), 0.18));
+  }
+  100% {
+    mask-position: 140% 0;
+    filter: drop-shadow(0 0 18px rgba(var(--color-dot-active), 0.42));
   }
 }
 

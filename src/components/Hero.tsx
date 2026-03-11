@@ -69,9 +69,9 @@ export default function Hero() {
                   <div className="relative">
                     <div className="absolute inset-0 bg-accent rounded-full blur-2xl opacity-20 animate-pulse" />
                     <img
-                      src="/assets/photo.jpg"
+                      src="/assets/photo_1.jpeg"
                       alt="Siddharth Ladda"
-                      className="relative rounded-full w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 object-cover object-bottom border-4 border-accent shadow-2xl"
+                      className="relative rounded-full w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 object-cover object-[center_80%] border-4 border-accent shadow-2xl"
                     />
                   </div>
                 </div>
