@@ -1,11 +1,13 @@
 import { ArrowDown, Github, Linkedin, Instagram, Mail } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Hero() {
   const titles = ["Software Engineer", "AI Enthusiast", "Full-Stack Developer", "Explorer"];
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
   const [greeting, setGreeting] = useState('');
   const [timeOfDay, setTimeOfDay] = useState<'morning' | 'afternoon' | 'evening'>('morning');
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Set greeting based on time
@@ -38,26 +40,12 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const socialLinks = [
     { icon: Github, url: 'https://github.com/laddasiddharth', label: 'GitHub' },
     { icon: Linkedin, url: 'https://linkedin.com/in/siddharth-ladda', label: 'LinkedIn' },
     { icon: Instagram, url: 'https://instagram.com/siddharthladda', label: 'Instagram' },
     { icon: Mail, url: 'mailto:siddharthladda@gmail.com', label: 'Email' },
   ];
-
-  // Dynamic background gradients based on time of day
-  const backgroundGradients = {
-    morning: 'bg-gradient-to-br from-blue-50 via-pink-50 to-yellow-50 dark:from-blue-950/20 dark:via-pink-950/20 dark:to-yellow-950/20',
-    afternoon: 'bg-gradient-to-br from-orange-50 via-yellow-50 to-blue-50 dark:from-orange-950/20 dark:via-yellow-950/20 dark:to-blue-950/20',
-    evening: 'bg-gradient-to-br from-purple-100 via-blue-100 to-orange-100 dark:from-purple-950/30 dark:via-blue-950/30 dark:to-orange-950/30',
-  };
 
   return (
     <section
@@ -114,7 +102,7 @@ export default function Hero() {
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row items-center md:items-start md:justify-start justify-center gap-4 pt-4">
                   <button
-                    onClick={() => scrollToSection('projects')}
+                    onClick={() => navigate('/projects')}
                     className="w-full sm:w-auto px-8 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                   >
                     View Projects
@@ -156,3 +144,4 @@ export default function Hero() {
     </section>
   );
 }
+

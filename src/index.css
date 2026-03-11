@@ -42,11 +42,19 @@
 
     /* Spotlight Color - Light Mode (Purple tint) */
     --spotlight-color-theme: rgba(124, 58, 237, 0.1);
+
+    /* Dotted Glow Background Colors - Light Mode */
+    --color-purple-400: 216, 180, 254;
+    --color-purple-500: 233, 213, 255;
   }
 
   .dark {
     /* Spotlight Color - Dark Mode (White tint) */
     --spotlight-color-theme: rgba(255, 255, 255, 0.25);
+
+    /* Dotted Glow Background Colors - Dark Mode */
+    --color-purple-400: 192, 132, 252;
+    --color-purple-500: 168, 85, 247;
 
     --background: 0.08 0.008 264;
     --foreground: 0.98 0.008 264;
@@ -88,6 +96,38 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Lenis Smooth Scroll */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
+  /* Dotted Background Pattern */
+  .bg-dotted {
+    background-image: radial-gradient(circle, rgba(147, 51, 234, 0.35) 2.5px, transparent 2.5px);
+    background-size: 20px 20px;
+  }
+
+  .dark .bg-dotted {
+    background-image: radial-gradient(circle, rgba(168, 85, 247, 0.5) 2.5px, transparent 2.5px);
   }
 }
 

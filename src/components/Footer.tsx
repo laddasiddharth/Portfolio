@@ -40,7 +40,7 @@ export default function Footer() {
             {/* Copyright */}
             <div className="text-center text-sm text-muted-foreground">
               <p className="flex items-center justify-center gap-1 flex-wrap">
-                © 2025 Siddharth Ladda. Built with React & Tailwind CSS.
+                © 2026 Siddharth Ladda
               </p>
             </div>
           </div>

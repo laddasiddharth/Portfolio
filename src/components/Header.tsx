@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Moon, Sun, Menu, X } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -10,7 +11,8 @@ export default function Header() {
     return savedTheme ? savedTheme === 'dark' : true;
   });
   const [nameIndex, setNameIndex] = useState(0);
-  const [activeSection, setActiveSection] = useState('hero');
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const names = [
     "Siddharth Ladda", // English
@@ -20,7 +22,7 @@ export default function Header() {
     "சித்தார்த் லத்தா", // Tamil
     "సిద్ధార్థ్ లద్దా", // Telugu
     "ಸಿದ್ಧಾರ್ಥ್ ಲಡ್ಡಾ", // Kannada
-    "സിദ്ധാർത്ഥ് ലദ്ദ", // Malayalam
+    "സിദ്ധಾರ್ത്ഥ് ಲದ್ಧ", // Malayalam
   ];
 
   useEffect(() => {
@@ -33,24 +35,8 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-
-      // Detect active section
-      const sections = ['hero', 'about', 'education', 'skills', 'projects', 'contact'];
-      const scrollPosition = window.scrollY + 100; // Offset for header height
-
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(sectionId);
-            break;
-          }
-        }
-      }
     };
     
-    handleScroll(); // Call once on mount
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -67,49 +53,43 @@ export default function Header() {
     }
   }, [isDark]);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
-  };
-
   const navItems = [
-    { label: 'About', id: 'about' },
-    { label: 'Education', id: 'education' },
-    { label: 'Skills', id: 'skills' },
-    { label: 'Projects', id: 'projects' },
-    { label: 'Contact', id: 'contact' },
+    { label: 'About', path: '/about' },
+    { label: 'Education', path: '/education' },
+    { label: 'Projects', path: '/projects' },
+    { label: 'Contact', path: '/contact' },
   ];
+
+
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background dark:bg-background backdrop-blur-xl"
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-card/80 backdrop-blur-md shadow-lg border-b border-border/50"
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:grid md:grid-cols-3">
-          <button
-            onClick={() => scrollToSection('hero')}
+          <Link
+            to="/"
             className="text-xl font-bold dark:bg-gradient-to-r dark:from-accent dark:to-accent dark:bg-clip-text dark:text-transparent text-gray-900 hover:opacity-80 transition-opacity drop-shadow-xl justify-self-start whitespace-nowrap"
           >
             {names[nameIndex]}
-          </button>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1 justify-self-center">
             {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
+              <Link
+                key={item.path}
+                to={item.path}
                 className={`px-4 py-2 text-sm font-medium transition-colors rounded-md drop-shadow-lg ${
-                  activeSection === item.id
+                  isActive(item.path)
                     ? 'dark:text-white text-white bg-accent/30 dark:bg-accent/30'
                     : 'dark:text-white dark:hover:text-white text-gray-900 hover:text-white hover:bg-accent/50'
                 }`}
               >
                 {item.label}
-              </button>
+              </Link>
             ))}
           </div>
 
@@ -137,19 +117,20 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-2 border-t border-border">
+          <div className="md:hidden py-4 space-y-2 border-t border-border bg-background">
             {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={`block w-full text-left px-4 py-2 text-sm font-medium rounded-md transition-colors drop-shadow-lg ${
-                  activeSection === item.id
+                  isActive(item.path)
                     ? 'dark:text-white text-white bg-accent/30 dark:bg-accent/30'
                     : 'dark:text-white dark:hover:text-white text-gray-900 hover:text-white hover:bg-accent/50'
                 }`}
               >
                 {item.label}
-              </button>
+              </Link>
             ))}
           </div>
         )}
@@ -157,3 +138,4 @@ export default function Header() {
     </header>
   );
 }
+
