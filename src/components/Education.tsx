@@ -5,18 +5,15 @@ import SpotlightCard from './ui/SpotlightCard';
 export default function Education() {
   const educationData = [
     {
-      title: "2023 - 2027",
+      title: "2019 - 2021",
       content: (
         <SpotlightCard className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-accent/50 transition-all" spotlightColor="var(--spotlight-color-theme)">
           <div className="mb-4">
             <h3 className="text-xl font-semibold text-foreground mb-2">
-              Undergraduation
+              Secondary Education (10th Grade)
             </h3>
             <p className="text-sm text-accent font-medium mb-2">
-              Amrita Vishwa Vidyapeetham, Coimbatore
-            </p>
-            <p className="text-sm text-muted-foreground mb-4">
-              B.Tech in Computer Science & Engineering
+              Platinum Jubilee High School, Warangal
             </p>
           </div>
         </SpotlightCard>
@@ -41,20 +38,24 @@ export default function Education() {
       ),
     },
     {
-      title: "2019 - 2021",
+      title: "2023 - 2027",
       content: (
         <SpotlightCard className="bg-card border border-border rounded-xl p-6 hover:shadow-lg hover:border-accent/50 transition-all" spotlightColor="var(--spotlight-color-theme)">
           <div className="mb-4">
             <h3 className="text-xl font-semibold text-foreground mb-2">
-              Secondary Education (10th Grade)
+              Undergraduation
             </h3>
             <p className="text-sm text-accent font-medium mb-2">
-              Platinum Jubilee High School, Warangal
+              Amrita Vishwa Vidyapeetham, Coimbatore
+            </p>
+            <p className="text-sm text-muted-foreground mb-4">
+              B.Tech in Computer Science & Engineering
             </p>
           </div>
         </SpotlightCard>
       ),
     },
+    
   ];
 
   return (
