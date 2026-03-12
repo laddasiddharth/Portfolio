@@ -50,20 +50,20 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden py-20"
+      className="relative h-screen max-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
         {/* Glassmorphism Card Container */}
-        <div className="max-w-6xl mx-auto bg-background border border-gray-200 dark:border-transparent shadow-lg dark:shadow-none backdrop-blur-ultra rounded-3xl p-6 md:p-10">
-          <div className="flex items-center justify-center min-h-[70vh]">
-            <div className="flex flex-col items-center justify-center gap-8 w-full">
+        <div className="max-w-6xl w-full mx-auto bg-background border border-gray-200 dark:border-transparent shadow-lg dark:shadow-none backdrop-blur-ultra rounded-3xl p-8 md:p-12">
+          <div className="flex items-center justify-center">
+            <div className="flex flex-col items-center justify-center gap-6 w-full">
               {/* Greeting - Above everything */}
               <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground font-bold animate-fade-in text-center">
                 {greeting}!
               </p>
 
-              <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 w-full">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-14 w-full">
                 {/* Profile Photo - Left Side */}
                 <div className="flex-shrink-0">
                   <div className="relative">
@@ -71,13 +71,13 @@ export default function Hero() {
                     <img
                       src="/assets/photo_1.jpeg"
                       alt="Siddharth Ladda"
-                      className="relative rounded-full w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 object-cover object-[center_80%] border-4 border-accent shadow-2xl"
+                      className="relative rounded-full w-52 h-52 sm:w-60 sm:h-60 md:w-64 md:h-64 object-cover object-[center_80%] border-4 border-accent shadow-2xl"
                     />
                   </div>
                 </div>
 
                 {/* Content - Right Side */}
-                <div className="flex-1 text-center md:text-left space-y-6">
+                <div className="flex-1 text-center md:text-left space-y-5">
 
                 {/* Name */}
                 <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight">
@@ -85,8 +85,8 @@ export default function Hero() {
                 </h1>
 
                 {/* Animated Subtitle */}
-                <div className="h-12 sm:h-14 md:h-16 flex items-center justify-center md:justify-start">
-                  <p 
+                <div className="h-10 sm:h-12 md:h-14 flex items-center justify-center md:justify-start">
+                  <p
                     key={currentTitleIndex}
                     className="text-xl sm:text-2xl md:text-3xl text-muted-foreground font-light animate-fade-in"
                   >
@@ -100,7 +100,7 @@ export default function Hero() {
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row items-center md:items-start md:justify-start justify-center gap-4 pt-4">
+                <div className="flex flex-col sm:flex-row items-center md:items-start md:justify-start justify-center gap-4 pt-3">
                   <button
                     onClick={() => navigate('/projects')}
                     className="w-full sm:w-auto px-8 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
@@ -118,7 +118,7 @@ export default function Hero() {
                 </div>
 
                 {/* Social Links */}
-                <div className="flex items-center justify-center md:justify-start gap-6 pt-4">
+                <div className="flex items-center justify-center md:justify-start gap-6 pt-3">
                   {socialLinks.map((link, idx) => {
                     const IconComponent = link.icon;
                     return (

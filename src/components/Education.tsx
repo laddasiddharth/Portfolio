@@ -73,7 +73,6 @@ export default function Education() {
                 Education <span className="text-accent">Timeline</span>
               </h2>
             </div>
-            <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
           </div>
 
           <div className="relative w-full overflow-clip">

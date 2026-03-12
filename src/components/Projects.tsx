@@ -101,7 +101,6 @@ const projects: Project[] = [
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
               Featured <span className="text-accent">Projects</span>
             </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
           </div>
 
           {projects && projects.length > 0 ? (

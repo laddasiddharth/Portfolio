@@ -22,7 +22,6 @@ export default function Contact() {
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
               Get In <span className="text-accent">Touch</span>
             </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mb-6" />
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Looking to collaborate? Reach out to discuss your next project, idea, or opportunity.
             </p>
