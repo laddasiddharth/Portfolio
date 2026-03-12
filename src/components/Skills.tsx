@@ -63,7 +63,7 @@ export default function Skills() {
           {/* Skills Section */}
           <div>
             <div className="text-center mb-12">
-              <h2 className="text-4xl sm:text-5xl font-bold mb-4">My <span className="text-accent">Skills</span></h2>
+              <h2 className="text-4xl sm:text-5xl font-bold mb-4">Technical <span className="text-accent">Skills</span></h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-12 md:gap-x-24">

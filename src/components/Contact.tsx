@@ -20,7 +20,7 @@ export default function Contact() {
           {/* Header */}
           <div className="text-center mb-12">
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              Get In <span className="text-accent">Touch</span>
+              Connect With <span className="text-accent">Me</span>
             </h2>
             <p className="text-muted-foreground text-base max-w-2xl mx-auto">
               Looking to collaborate? Reach out to discuss your next project, idea, or opportunity.
