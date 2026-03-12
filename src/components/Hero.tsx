@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Hero() {
   const titles = ["Software Engineer", "AI Enthusiast", "Full-Stack Developer", "Explorer"];
+  const aboutContent = `I'm a Computer Science undergraduate with a strong passion for building web applications and exploring artificial intelligence. I enjoy creating software that is practical, efficient, and user-focused. Throughout my journey, I have worked on developing full-featured web platforms, designing smooth and responsive user experiences, connecting frontend interfaces with backend systems, and organizing data efficiently for various real-world applications.
+
+Alongside web development, I actively explore how intelligent systems can solve everyday problems. I have hands-on experience creating smart desktop tools, building systems that understand and process text, developing programs that can learn from data and make predictions, and designing automated solutions that help users save time and work more effectively with high accuracy and dependability.
+
+I'm currently seeking opportunities to continue learning, collaborate with motivated teams, and contribute to innovative projects that create meaningful real-world impact through technology.`;
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
   const [greeting, setGreeting] = useState('');
   const [timeOfDay, setTimeOfDay] = useState<'morning' | 'afternoon' | 'evening'>('morning');
@@ -50,14 +55,14 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative h-screen max-h-screen flex items-center justify-center overflow-hidden"
+      className="relative h-full flex items-center justify-center py-24"
     >
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-start">
         {/* Glassmorphism Card Container */}
         <div className="max-w-6xl w-full mx-auto bg-background border border-gray-200 dark:border-transparent shadow-lg dark:shadow-none backdrop-blur-ultra rounded-3xl p-8 md:p-12">
           <div className="flex items-center justify-center">
-            <div className="flex flex-col items-center justify-center gap-6 w-full">
+            <div className="flex flex-col items-center justify-center gap-10 w-full">
               {/* Greeting - Above everything */}
               <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground font-bold animate-fade-in text-center">
                 {greeting}!
@@ -135,6 +140,21 @@ export default function Hero() {
                     );
                   })}
                 </div>
+                </div>
+              </div>
+
+              {/* About Me - Merged into Hero card */}
+              <div className="w-full pt-8">
+                <div className="text-center mb-8">
+                  <h2 className="text-3xl sm:text-4xl font-bold">About <span className="text-accent">Me</span></h2>
+                </div>
+
+                <div className="max-w-4xl mx-auto">
+                  <div className="text-muted-foreground leading-relaxed space-y-6 text-base md:text-lg text-center">
+                    {aboutContent.split('\n\n').map((paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

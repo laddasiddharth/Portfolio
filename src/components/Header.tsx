@@ -54,7 +54,6 @@ export default function Header() {
   }, [isDark]);
 
   const navItems = [
-    { label: 'About', path: '/about' },
     { label: 'Skills', path: '/skills' },
     { label: 'Education', path: '/education' },
     { label: 'Projects', path: '/projects' },
