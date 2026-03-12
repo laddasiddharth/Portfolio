@@ -77,6 +77,8 @@ I'm currently seeking opportunities to continue learning, collaborate with motiv
                       src="/assets/photo_1.jpeg"
                       alt="Siddharth Ladda"
                       className="relative rounded-full w-52 h-52 sm:w-60 sm:h-60 md:w-64 md:h-64 object-cover object-[center_80%] border-4 border-accent shadow-2xl"
+                      loading="eager"
+                      decoding="async"
                     />
                   </div>
                 </div>
