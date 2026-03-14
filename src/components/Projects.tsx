@@ -84,6 +84,21 @@ const projects: Project[] = [
     ],
     liveDemoUrl: "https://fresh-fetch.vercel.app/",
     repositoryUrl: "https://github.com/laddasiddharth/FreshFetch"
+  },
+  {
+    id: "secure-legal-case-system",
+    title: "Secure Legal Case & Document Management",
+    description:
+      "A high-security document management platform engineered for the legal industry to handle sensitive judicial data. Built with a 'Zero-Trust' philosophy, the system ensures complete confidentiality and document integrity for legal professionals through an advanced security-first architecture.",
+    technologies: [
+      "TypeScript",
+      "Node.js",
+      "React",
+      "Cryptography",
+      "Security",
+      "Express"
+    ],
+    repositoryUrl: "https://github.com/laddasiddharth/Secure-Legal-Case-Client-Confidential-Document-Management-System"
   }
 ];
 
