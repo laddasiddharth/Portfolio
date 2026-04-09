@@ -99,6 +99,23 @@ const projects: Project[] = [
       "Express"
     ],
     repositoryUrl: "https://github.com/laddasiddharth/Secure-Legal-Case-Client-Confidential-Document-Management-System"
+  },
+  {
+    id: "zero-knowledge-password-manager",
+    title: "Zenith Vault (Zero-Knowledge Password Manager)",
+    description:
+      "A high-security password management system built with a true zero-knowledge architecture. Features client-side AES-256-GCM encryption, privacy-preserving breach detection using k-Anonymity, and multi-platform support with a browser extension.",
+    technologies: [
+      "Next.js",
+      "Node.js",
+      "TypeScript",
+      "Cryptography",
+      "MongoDB",
+      "Tailwind CSS",
+      "Express"
+    ],
+    liveDemoUrl: "https://zero-knowledge-password-manager-frontend.onrender.com/",
+    repositoryUrl: "https://github.com/SE-Project-Team-13/Zero-Knowledge-Password-Manager"
   }
 ];
 
