@@ -4,11 +4,11 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 export default function Education() {
   const educationData = [
     {
-      period: "August 2023 - Expected July 2027",
-      title: "Undergraduation",
-      institution: "Amrita Vishwa Vidyapeetham, Coimbatore",
-      degree: "B.Tech in Computer Science & Engineering",
-      icon: "🎓",
+      period: "June 2020 - April 2021",
+      title: "Secondary Education",
+      institution: "Platinum Jubilee High School, Warangal",
+      degree: "",
+      icon: "🏫",
     },
     {
       period: "June 2021 - May 2023",
@@ -18,11 +18,11 @@ export default function Education() {
       icon: "📚",
     },
     {
-      period: "June 2020 - April 2021",
-      title: "Secondary Education",
-      institution: "Platinum Jubilee High School, Warangal",
-      degree: "",
-      icon: "🏫",
+      period: "August 2023 - Expected July 2027",
+      title: "Undergraduation",
+      institution: "Amrita Vishwa Vidyapeetham, Coimbatore",
+      degree: "B.Tech in Computer Science & Engineering",
+      icon: "🎓",
     },
   ];
 
