@@ -7,6 +7,7 @@ import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Education from "./components/Education";
 import Contact from "./components/Contact";
+import Background from "./components/Background";
 
 function App() {
   const lenisRef = useRef<Lenis | null>(null);
@@ -38,13 +39,7 @@ function App() {
 
   return (
     <div className="bg-background text-foreground relative min-h-screen">
-      {/* Subtle background pattern */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-30 dark:opacity-20">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, oklch(var(--muted-foreground) / 0.15) 1px, transparent 0)',
-          backgroundSize: '40px 40px'
-        }} />
-      </div>
+      <Background />
 
       {/* Content */}
       <div className="relative z-10">
