@@ -1,4 +1,4 @@
-import SpotlightCard from './ui/SpotlightCard';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 interface Skill {
   name: string;
@@ -7,6 +7,7 @@ interface Skill {
 
 interface SkillCategory {
   title: string;
+  icon: string;
   skills: Skill[];
 }
 
@@ -14,6 +15,7 @@ export default function Skills() {
   const skillCategories: SkillCategory[] = [
     {
       title: 'Programming Languages',
+      icon: '⚡',
       skills: [
         { name: 'Python', iconSlug: 'python' },
         { name: 'JavaScript', iconSlug: 'js' },
@@ -24,6 +26,7 @@ export default function Skills() {
     },
     {
       title: 'Web Development',
+      icon: '🌐',
       skills: [
         { name: 'React', iconSlug: 'react' },
         { name: 'Next.js', iconSlug: 'nextjs' },
@@ -34,6 +37,7 @@ export default function Skills() {
     },
     {
       title: 'Backend & Databases',
+      icon: '🗄️',
       skills: [
         { name: 'Node.js', iconSlug: 'nodejs' },
         { name: 'Express.js', iconSlug: 'express' },
@@ -44,6 +48,7 @@ export default function Skills() {
     },
     {
       title: 'Tools & Platforms',
+      icon: '🛠️',
       skills: [
         { name: 'Git', iconSlug: 'git' },
         { name: 'Docker', iconSlug: 'docker' },
@@ -54,55 +59,37 @@ export default function Skills() {
     }
   ];
 
+  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.08 });
+
   return (
-    <section id="skills" className="relative h-screen max-h-screen flex items-center justify-center overflow-hidden">
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-        {/* Glassmorphism Card Container */}
-        <div className="max-w-6xl mx-auto bg-background border border-gray-200 dark:border-transparent shadow-lg dark:shadow-none backdrop-blur-ultra rounded-3xl p-8 md:p-12">
-
-          {/* Skills Section */}
-          <div>
-            <div className="text-center mb-12">
-              <h2 className="text-4xl sm:text-5xl font-bold mb-4">Technical <span className="text-accent">Skills</span></h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-12 md:gap-x-24">
-              {skillCategories.map((category, idx) => (
-                <div key={idx} className="animate-fade-in" style={{ animationDelay: `${idx * 100}ms` }}>
-                  <div className="flex items-center justify-center mb-6">
-                    <h3 className="text-xl font-bold text-foreground/90">
-                      {category.title}
-                    </h3>
-                  </div>
-
-                  <div className="flex justify-center gap-x-[26px]">
-                    {category.skills.map((skill, skillIdx) => (
-                      <div
-                        key={skillIdx}
-                        className="flex flex-col items-center gap-2 group flex-shrink-0"
-                      >
-                        <SpotlightCard
-                          className="w-[54px] h-[54px] bg-background/40 backdrop-blur-sm border border-border/40 rounded-lg flex items-center justify-center p-2 transition-all duration-300 group-hover:border-accent/40 group-hover:scale-110 group-hover:shadow-lg"
-                          spotlightColor="rgba(var(--accent-rgb), 0.15)"
-                        >
-                          <img
-                            src={`https://skillicons.dev/icons?i=${skill.iconSlug}`}
-                            alt={skill.name}
-                            className="w-full h-full object-contain transition-all duration-300"
-                            loading="lazy"
-                          />
-                        </SpotlightCard>
-                        <span className="text-[9px] font-medium uppercase tracking-wider text-muted-foreground group-hover:text-accent transition-colors duration-300 text-center whitespace-nowrap">
-                          {skill.name}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
+    <section id="skills" className="relative py-10 sm:py-14">
+      <div className="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px] pointer-events-none" />
+      <div ref={sectionRef} className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <h2 className="section-heading">Technical <span className="gradient-text">Skills</span></h2>
+            <p className="section-subheading">Technologies and tools I work with</p>
           </div>
-
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {skillCategories.map((category, idx) => (
+              <div key={idx} className={`glass-card rounded-2xl p-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: `${200 + idx * 150}ms` }}>
+                <div className="flex items-center gap-3 mb-8">
+                  <span className="text-2xl">{category.icon}</span>
+                  <h3 className="text-lg font-bold text-foreground">{category.title}</h3>
+                </div>
+                <div className="flex flex-wrap justify-start gap-5">
+                  {category.skills.map((skill, skillIdx) => (
+                    <div key={skillIdx} className="flex flex-col items-center gap-2">
+                      <div className="w-14 h-14 bg-background/50 border border-border/40 rounded-xl flex items-center justify-center p-2">
+                        <img src={`https://skillicons.dev/icons?i=${skill.iconSlug}`} alt={skill.name} className="w-full h-full object-contain" loading="lazy" />
+                      </div>
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground text-center whitespace-nowrap">{skill.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

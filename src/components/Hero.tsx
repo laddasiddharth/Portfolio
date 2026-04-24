@@ -1,39 +1,25 @@
-import { ArrowDown, Github, Linkedin, Instagram, Mail } from 'lucide-react';
+import { Github, Linkedin, Instagram, Mail, FileText, ArrowDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function Hero() {
   const titles = ["Software Engineer", "AI Enthusiast", "Full-Stack Developer", "Explorer"];
-  const aboutContent = `I'm a Computer Science undergraduate with a strong passion for building web applications and exploring artificial intelligence. I enjoy creating software that is practical, efficient, and user-focused. Throughout my journey, I have worked on developing full-featured web platforms, designing smooth and responsive user experiences, connecting frontend interfaces with backend systems, and organizing data efficiently for various real-world applications.
-
-Alongside web development, I actively explore how intelligent systems can solve everyday problems. I have hands-on experience creating smart desktop tools, building systems that understand and process text, developing programs that can learn from data and make predictions, and designing automated solutions that help users save time and work more effectively with high accuracy and dependability.
-
-I'm currently seeking opportunities to continue learning, collaborate with motivated teams, and contribute to innovative projects that create meaningful real-world impact through technology.`;
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
   const [greeting, setGreeting] = useState('');
-  const [timeOfDay, setTimeOfDay] = useState<'morning' | 'afternoon' | 'evening'>('morning');
-  const navigate = useNavigate();
+  const [displayText, setDisplayText] = useState('');
+  const [isTyping, setIsTyping] = useState(true);
+
+  const { ref: heroRef, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   useEffect(() => {
-    // Set greeting based on time
     const updateGreeting = () => {
       const hour = new Date().getHours();
-      if (hour >= 5 && hour < 12) {
-        setGreeting('Good Morning');
-        setTimeOfDay('morning');
-      } else if (hour >= 12 && hour < 18) {
-        setGreeting('Good Afternoon');
-        setTimeOfDay('afternoon');
-      } else {
-        setGreeting('Good Evening');
-        setTimeOfDay('evening');
-      }
+      if (hour >= 5 && hour < 12) setGreeting('Good Morning');
+      else if (hour >= 12 && hour < 18) setGreeting('Good Afternoon');
+      else setGreeting('Good Evening');
     };
-
     updateGreeting();
-    // Update greeting every minute
     const greetingInterval = setInterval(updateGreeting, 60000);
-
     return () => clearInterval(greetingInterval);
   }, []);
 
@@ -41,9 +27,25 @@ I'm currently seeking opportunities to continue learning, collaborate with motiv
     const interval = setInterval(() => {
       setCurrentTitleIndex((prevIndex) => (prevIndex + 1) % titles.length);
     }, 3000);
-
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const currentTitle = titles[currentTitleIndex];
+    let charIndex = 0;
+    setDisplayText('');
+    setIsTyping(true);
+    const typeInterval = setInterval(() => {
+      if (charIndex <= currentTitle.length) {
+        setDisplayText(currentTitle.slice(0, charIndex));
+        charIndex++;
+      } else {
+        clearInterval(typeInterval);
+        setIsTyping(false);
+      }
+    }, 60);
+    return () => clearInterval(typeInterval);
+  }, [currentTitleIndex]);
 
   const socialLinks = [
     { icon: Github, url: 'https://github.com/laddasiddharth', label: 'GitHub' },
@@ -52,118 +54,113 @@ I'm currently seeking opportunities to continue learning, collaborate with motiv
     { icon: Mail, url: 'mailto:siddharthladda@gmail.com', label: 'Email' },
   ];
 
+  const scrollToProjects = () => {
+    const el = document.getElementById('projects');
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 20;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section
-      id="hero"
-      className="relative h-full flex items-center justify-center py-24"
+      id="home"
+      className="relative min-h-[85vh] flex items-center justify-center pt-8 pb-10 overflow-hidden"
     >
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-start">
-        {/* Glassmorphism Card Container */}
-        <div className="max-w-6xl w-full mx-auto bg-background border border-gray-200 dark:border-transparent shadow-lg dark:shadow-none backdrop-blur-ultra rounded-3xl p-8 md:p-12">
-          <div className="flex items-center justify-center">
-            <div className="flex flex-col items-center justify-center gap-10 w-full">
-              {/* Greeting - Above everything */}
-              <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground font-bold animate-fade-in text-center">
-                {greeting}!
+      {/* Ambient glow effects */}
+      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+
+      <div ref={heroRef} className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className={`max-w-6xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="flex flex-col-reverse md:flex-row items-center gap-12 md:gap-16">
+
+            {/* Left — Content */}
+            <div className="flex-1 text-center md:text-left space-y-6">
+              {/* Greeting */}
+              <p className="text-base sm:text-lg text-muted-foreground font-medium tracking-wide animate-fade-in">
+                ✨ {greeting}!
               </p>
 
-              <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-14 w-full">
-                {/* Profile Photo - Left Side */}
-                <div className="flex-shrink-0">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-accent rounded-full blur-2xl opacity-20 animate-pulse" />
-                    <img
-                      src="/assets/photo_1.jpeg"
-                      alt="Siddharth Ladda"
-                      className="relative rounded-full w-52 h-52 sm:w-60 sm:h-60 md:w-64 md:h-64 object-cover object-[center_80%] border-4 border-accent shadow-2xl"
-                      loading="eager"
-                      decoding="async"
-                    />
-                  </div>
-                </div>
+              {/* Name */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
+                <span className="gradient-text">Siddharth Ladda</span>
+              </h1>
 
-                {/* Content - Right Side */}
-                <div className="flex-1 text-center md:text-left space-y-5">
-
-                {/* Name */}
-                <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight">
-                  <span className="text-accent">Siddharth Ladda</span>
-                </h1>
-
-                {/* Animated Subtitle */}
-                <div className="h-10 sm:h-12 md:h-14 flex items-center justify-center md:justify-start">
-                  <p
-                    key={currentTitleIndex}
-                    className="text-xl sm:text-2xl md:text-3xl text-muted-foreground font-light animate-fade-in"
-                  >
-                    {titles[currentTitleIndex]}
-                  </p>
-                </div>
-
-                {/* Description */}
-                <p className="text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-                  Building innovative solutions and learning new technologies every day
+              {/* Animated Subtitle — Typewriter */}
+              <div className="h-10 sm:h-12 flex items-center justify-center md:justify-start">
+                <p className="text-xl sm:text-2xl md:text-3xl font-light tracking-wide">
+                  <span className="text-accent font-semibold">
+                    {displayText}
+                    <span className={`inline-block w-[2px] h-5 sm:h-6 bg-accent ml-0.5 align-middle ${isTyping ? 'animate-pulse' : 'opacity-0'}`} />
+                  </span>
                 </p>
-
-                {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row items-center md:items-start md:justify-start justify-center gap-4 pt-3">
-                  <button
-                    onClick={() => navigate('/projects')}
-                    className="w-full sm:w-auto px-8 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
-                  >
-                    View Projects
-                    <ArrowDown className="h-4 w-4" />
-                  </button>
-                  <a
-                    href="/assets/Siddharth_Ladda_Resume.pdf"
-                    target="_blank"
-                    className="w-full sm:w-auto px-8 py-3 border-2 border-accent rounded-lg font-semibold text-foreground hover:bg-accent/10 transition-all flex items-center justify-center gap-2"
-                  >
-                    Resume
-                  </a>
-                </div>
-
-                {/* Social Links */}
-                <div className="flex items-center justify-center md:justify-start gap-6 pt-3">
-                  {socialLinks.map((link, idx) => {
-                    const IconComponent = link.icon;
-                    return (
-                      <a
-                        key={idx}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-accent transition-colors"
-                        aria-label={link.label}
-                      >
-                        <IconComponent className="h-6 w-6" />
-                      </a>
-                    );
-                  })}
-                </div>
-                </div>
               </div>
 
-              {/* About Me - Merged into Hero card */}
-              <div className="w-full pt-8">
-                <div className="text-center mb-8">
-                  <h2 className="text-3xl sm:text-4xl font-bold">About <span className="text-accent">Me</span></h2>
-                </div>
+              {/* Description */}
+              <p className="text-base text-muted-foreground max-w-lg leading-relaxed">
+                Computer Science undergraduate and full-stack developer driven by a passion for building scalable web applications and integrating practical AI solutions. Experienced in React, Node.js, and Python, with a focus on delivering projects from concept to deployment.
+              </p>
 
-                <div className="max-w-4xl mx-auto">
-                  <div className="text-muted-foreground leading-relaxed space-y-6 text-base md:text-lg text-center">
-                    {aboutContent.split('\n\n').map((paragraph, index) => (
-                      <p key={index}>{paragraph}</p>
-                    ))}
-                  </div>
+              {/* Social Links as pill buttons */}
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
+                {socialLinks.map((link, idx) => {
+                  const IconComponent = link.icon;
+                  return (
+                    <a
+                      key={idx}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border text-sm font-medium text-foreground/80 hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all duration-300 hover:scale-[1.03]"
+                      aria-label={link.label}
+                    >
+                      <IconComponent className="h-4 w-4" />
+                      {link.label}
+                    </a>
+                  );
+                })}
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row items-center md:items-start gap-4 pt-2">
+                <button
+                  onClick={scrollToProjects}
+                  className="group w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-accent to-primary text-white rounded-xl font-semibold hover:shadow-glow-lg transition-all duration-400 flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
+                >
+                  View Projects
+                  <ArrowDown className="h-4 w-4 group-hover:translate-y-1 transition-transform duration-300" />
+                </button>
+                <a
+                  href="/assets/Siddharth_Ladda_Resume.pdf"
+                  target="_blank"
+                  className="group w-full sm:w-auto px-8 py-3.5 border-2 border-accent/40 rounded-xl font-semibold text-foreground hover:bg-accent/10 hover:border-accent/70 transition-all duration-400 flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
+                >
+                  <FileText className="h-4 w-4" />
+                  Resume
+                </a>
+              </div>
+            </div>
+
+            {/* Right — Photo */}
+            <div className="flex-shrink-0">
+              <div className="relative group">
+                <div className="absolute -inset-3 bg-gradient-to-br from-accent via-primary to-accent rounded-2xl opacity-30 group-hover:opacity-50 blur-2xl transition-all duration-700 animate-pulse-glow" />
+                <div className="relative rounded-2xl overflow-hidden border-2 border-border/50 shadow-2xl group-hover:border-accent/40 transition-all duration-500">
+                  <img
+                    src="/assets/photo_1.jpeg"
+                    alt="Siddharth Ladda"
+                    className="w-72 h-80 sm:w-80 sm:h-[22rem] md:w-[22rem] md:h-[26rem] object-cover object-[center_80%] group-hover:scale-105 transition-transform duration-700"
+                    loading="eager"
+                    decoding="async"
+                  />
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
     </section>
   );
 }
-

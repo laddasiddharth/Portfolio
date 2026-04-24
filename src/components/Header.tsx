@@ -1,141 +1,154 @@
-import { useState, useEffect } from 'react';
-import { Moon, Sun, Menu, X } from 'lucide-react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { Moon, Sun, Monitor, Menu, X, Home, User, Code2, FolderKanban, GraduationCap, Mail } from 'lucide-react';
+import { useActiveSection } from '../hooks/useScrollReveal';
 
-export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(() => {
-    // Initialize from localStorage or default to dark
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme ? savedTheme === 'dark' : true;
-  });
-  const [nameIndex, setNameIndex] = useState(0);
-  const location = useLocation();
-  const navigate = useNavigate();
+type Theme = 'system' | 'dark' | 'light';
 
-  const names = [
-    "Siddharth Ladda", // English
-    "सिद्धार्थ लड्डा", // Hindi
-    "সিদ্ধার্থ লাড্ডা", // Bengali
-    "સિદ્ધાર્થ લડ્ડા", // Gujarati
-    "சித்தார்த் லத்தா", // Tamil
-    "సిద్ధార్థ్ లద్దా", // Telugu
-    "ಸಿದ್ಧಾರ್ಥ್ ಲಡ್ಡಾ", // Kannada
-    "സിദ്ധಾರ್ത്ഥ് ಲದ್ಧ", // Malayalam
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setNameIndex((prev) => (prev + 1) % names.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const htmlElement = document.documentElement;
-    // Save to localStorage
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    // Apply to DOM
-    if (isDark) {
-      htmlElement.classList.add('dark');
-    } else {
-      htmlElement.classList.remove('dark');
-    }
-  }, [isDark]);
-
-  const navItems = [
-    { label: 'Skills', path: '/skills' },
-    { label: 'Education', path: '/education' },
-    { label: 'Projects', path: '/projects' },
-    { label: 'Contact', path: '/contact' },
-  ];
-
-
-  const isActive = (path: string) => location.pathname === path;
-
-  return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-card/80 backdrop-blur-md shadow-lg border-b border-border/50"
-    >
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:grid md:grid-cols-3">
-          <Link
-            to="/"
-            className="text-xl font-bold dark:bg-gradient-to-r dark:from-accent dark:to-accent dark:bg-clip-text dark:text-transparent text-gray-900 hover:opacity-80 transition-opacity drop-shadow-xl justify-self-start whitespace-nowrap"
-          >
-            {names[nameIndex]}
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1 justify-self-center">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`px-4 py-2 text-sm font-medium transition-colors rounded-md drop-shadow-lg ${
-                  isActive(item.path)
-                    ? 'dark:text-white text-white bg-accent/30 dark:bg-accent/30'
-                    : 'dark:text-white dark:hover:text-white text-gray-900 hover:text-white hover:bg-accent/50'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Actions */}
-          <div className="flex items-center gap-4 justify-self-end">
-            <button
-              onClick={() => setIsDark(!isDark)}
-              className="relative p-2 rounded-full hover:bg-accent/30 transition-colors flex items-center justify-center dark:hover:bg-accent/50 text-gray-900 dark:text-white drop-shadow-xl"
-              title="Toggle theme"
-            >
-              <Sun className="h-5 w-5 hidden dark:block" />
-              <Moon className="h-5 w-5 dark:hidden" />
-              <span className="sr-only">Toggle theme</span>
-            </button>
-
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-full hover:bg-accent/50 transition-colors"
-            >
-              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-2 border-t border-border bg-background">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`block w-full text-left px-4 py-2 text-sm font-medium rounded-md transition-colors drop-shadow-lg ${
-                  isActive(item.path)
-                    ? 'dark:text-white text-white bg-accent/30 dark:bg-accent/30'
-                    : 'dark:text-white dark:hover:text-white text-gray-900 hover:text-white hover:bg-accent/50'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        )}
-      </nav>
-    </header>
-  );
+function getSystemTheme(): 'dark' | 'light' {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
+function applyTheme(theme: Theme) {
+  const resolved = theme === 'system' ? getSystemTheme() : theme;
+  const html = document.documentElement;
+  if (resolved === 'dark') {
+    html.classList.add('dark');
+  } else {
+    html.classList.remove('dark');
+  }
+}
+
+export default function Header() {
+  const [themeDropdownOpen, setThemeDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
+
+  const [theme, setTheme] = useState<Theme>(() => {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || saved === 'light' || saved === 'system') return saved;
+    return 'system';
+  });
+
+  const navItems = [
+    { label: 'Home', id: 'home', icon: Home },
+    { label: 'About', id: 'about', icon: User },
+    { label: 'Skills', id: 'skills', icon: Code2 },
+    { label: 'Projects', id: 'projects', icon: FolderKanban },
+    { label: 'Education', id: 'education', icon: GraduationCap },
+    { label: 'Contact', id: 'contact', icon: Mail },
+  ];
+
+  const sectionIds = navItems.map(item => item.id);
+  const activeSection = useActiveSection(sectionIds);
+
+  const themeOptions: { value: Theme; label: string; icon: React.ReactNode }[] = [
+    { value: 'system', label: 'System', icon: <Monitor className="h-4 w-4" /> },
+    { value: 'dark', label: 'Dark', icon: <Moon className="h-4 w-4" /> },
+    { value: 'light', label: 'Light', icon: <Sun className="h-4 w-4" /> },
+  ];
+
+  // Apply theme on change
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    applyTheme(theme);
+  }, [theme]);
+
+  // Listen for system theme changes when in system mode
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = () => {
+      if (theme === 'system') applyTheme('system');
+    };
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, [theme]);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setThemeDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const handleNavClick = useCallback((id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 20;
+      const top = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }, []);
+
+  const currentThemeIcon = theme === 'dark' ? <Moon className="h-5 w-5" /> : theme === 'light' ? <Sun className="h-5 w-5" /> : <Monitor className="h-5 w-5" />;
+
+  return (
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4">
+      {/* Navigation Dock */}
+      <nav className="flex items-center gap-1 px-3 py-2.5 rounded-2xl bg-card/90 backdrop-blur-xl border border-border shadow-2xl shadow-black/25">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = activeSection === item.id;
+          const isHovered = hoveredNav === item.id;
+          return (
+            <div key={item.id} className="relative">
+              {/* Tooltip */}
+              <div className={`absolute -top-10 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-lg bg-card border border-border text-xs font-medium text-foreground whitespace-nowrap shadow-lg transition-all duration-200 ${
+                isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
+              }`}>
+                {item.label}
+              </div>
+              <button
+                onClick={() => handleNavClick(item.id)}
+                onMouseEnter={() => setHoveredNav(item.id)}
+                onMouseLeave={() => setHoveredNav(null)}
+                className={`relative p-3 rounded-xl transition-all duration-300 cursor-pointer ${
+                  isActive
+                    ? 'bg-gradient-to-r from-accent to-primary text-white shadow-lg shadow-accent/30 scale-110'
+                    : 'text-foreground/60 hover:text-foreground hover:bg-foreground/8'
+                }`}
+              >
+                <Icon className="h-5 w-5" />
+              </button>
+            </div>
+          );
+        })}
+      </nav>
+
+      {/* Theme Toggle */}
+      <div ref={dropdownRef} className="relative">
+        <button
+          onClick={() => setThemeDropdownOpen(!themeDropdownOpen)}
+          className="p-3 rounded-2xl bg-card/90 backdrop-blur-xl border border-border shadow-2xl shadow-black/25 text-foreground/70 hover:text-foreground transition-all duration-300"
+          title="Change theme"
+        >
+          {currentThemeIcon}
+        </button>
+
+        {/* Dropdown — opens upward */}
+        <div className={`absolute right-0 bottom-full mb-3 w-40 rounded-xl border border-border bg-card backdrop-blur-xl shadow-2xl shadow-black/30 overflow-hidden transition-all duration-300 origin-bottom-right ${
+          themeDropdownOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-2 pointer-events-none'
+        }`}>
+          {themeOptions.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => { setTheme(opt.value); setThemeDropdownOpen(false); }}
+              className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-all duration-200 ${
+                theme === opt.value
+                  ? 'bg-accent/15 text-accent font-semibold'
+                  : 'text-foreground/70 hover:bg-foreground/5 hover:text-foreground'
+              }`}
+            >
+              {opt.icon}
+              {opt.label}
+              {theme === opt.value && <span className="ml-auto text-accent">✓</span>}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
