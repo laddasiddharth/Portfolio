@@ -10,7 +10,7 @@ I'm actively seeking opportunities to collaborate with driven teams and contribu
   const paragraphs = aboutContent.split('\n\n');
 
   return (
-    <section className="relative py-24 sm:py-28">
+    <section className="relative pt-24 sm:pt-28 pb-10 sm:pb-12">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
 
       <div ref={sectionRef} className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
