@@ -69,7 +69,7 @@ export default function Projects() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.05 });
 
   return (
-    <section className="relative py-24 sm:py-28">
+    <section className="relative pt-24 sm:pt-28 pb-10 sm:pb-12">
       <div className="absolute bottom-0 -left-40 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
       <div ref={sectionRef} className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
