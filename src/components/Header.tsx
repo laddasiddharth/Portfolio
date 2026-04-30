@@ -124,40 +124,6 @@ export default function Header() {
           })}
         </ul>
 
-        {/* Separator */}
-        <div className="hidden md:block w-[1px] h-5 bg-border mx-2 order-2 pointer-events-none"></div>
-
-        {/* Theme Toggle (Left on Mobile, Right on Desktop) */}
-        <div ref={dropdownRef} className="relative order-1 md:order-3 pointer-events-auto">
-          <button
-            onClick={() => setThemeDropdownOpen(!themeDropdownOpen)}
-            className="p-3 md:p-2 rounded-full bg-background/80 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border border-border md:border-transparent shadow-lg md:shadow-none hover:bg-foreground/10 text-foreground/70 hover:text-foreground transition-all duration-300 flex items-center justify-center"
-            title="Change theme"
-          >
-            {currentThemeIcon}
-          </button>
-
-          {/* Dropdown — opens downward */}
-          <div className={`absolute left-0 md:left-auto md:right-0 top-full mt-3 w-36 rounded-xl border border-border bg-card backdrop-blur-xl shadow-xl overflow-hidden transition-all duration-300 origin-top-left md:origin-top-right ${
-            themeDropdownOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
-          }`}>
-            {themeOptions.map((opt) => (
-              <button
-                key={opt.value}
-                onClick={() => { setTheme(opt.value); setThemeDropdownOpen(false); }}
-                className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-200 ${
-                  theme === opt.value
-                    ? 'bg-foreground/10 text-foreground font-medium'
-                    : 'text-foreground/70 hover:bg-foreground/5 hover:text-foreground'
-                }`}
-              >
-                {opt.icon}
-                {opt.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Mobile Nav Toggle (Right on Mobile) */}
         <div ref={mobileMenuRef} className="md:hidden relative flex items-center order-2 pointer-events-auto">
           <button
@@ -195,6 +161,39 @@ export default function Header() {
         </div>
 
       </nav>
+    </div>
+
+    {/* Relocated Theme Toggle (Top Right) */}
+    <div className="fixed top-6 right-6 z-50 pointer-events-none">
+      <div ref={dropdownRef} className="relative pointer-events-auto">
+        <button
+          onClick={() => setThemeDropdownOpen(!themeDropdownOpen)}
+          className="p-3 rounded-xl bg-background/80 backdrop-blur-xl border border-border shadow-lg hover:bg-foreground/10 text-foreground/70 hover:text-foreground transition-all duration-300 flex items-center justify-center"
+          title="Change theme"
+        >
+          {currentThemeIcon}
+        </button>
+
+        {/* Dropdown — opens downward */}
+        <div className={`absolute right-0 top-full mt-3 w-36 rounded-xl border border-border bg-card backdrop-blur-xl shadow-xl overflow-hidden transition-all duration-300 origin-top-right ${
+          themeDropdownOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
+        }`}>
+          {themeOptions.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => { setTheme(opt.value); setThemeDropdownOpen(false); }}
+              className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-200 ${
+                theme === opt.value
+                  ? 'bg-foreground/10 text-foreground font-medium'
+                  : 'text-foreground/70 hover:bg-foreground/5 hover:text-foreground'
+              }`}
+            >
+              {opt.icon}
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
     </>
   );
