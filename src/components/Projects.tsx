@@ -109,6 +109,20 @@ export default function Projects() {
               </SpotlightCard>
             ))}
           </div>
+
+          {/* GitHub CTA Button */}
+          <div className={`mt-16 text-center transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+            <a 
+              href="https://github.com/laddasiddharth" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-accent/10 to-primary/10 border border-border/50 rounded-2xl text-foreground font-semibold hover:border-accent/50 hover:bg-accent/5 hover:scale-[1.03] transition-all duration-300 group shadow-lg"
+            >
+              <Github className="h-5 w-5 text-accent" />
+              <span>Explore more on GitHub</span>
+              <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
+            </a>
+          </div>
         </div>
       </div>
     </section>
