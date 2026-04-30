@@ -36,15 +36,15 @@ export default function Contact() {
             </a>
           </div>
 
-          {/* Social links row */}
+          {/* Social links grid */}
           <div className={`transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <p className="text-center text-sm text-muted-foreground mb-4">Find me on</p>
-            <div className="flex items-center justify-center gap-3">
+            <p className="text-center text-sm font-semibold uppercase tracking-widest text-muted-foreground/60 mb-8">Find me on</p>
+            <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
               {[
-                { icon: Github, url: 'https://github.com/laddasiddharth', label: 'GitHub' },
-                { icon: Linkedin, url: 'https://linkedin.com/in/siddharth-ladda', label: 'LinkedIn' },
-                { icon: Instagram, url: 'https://instagram.com/siddharthladda', label: 'Instagram' },
-                { icon: Mail, url: 'mailto:siddharthladda@gmail.com', label: 'Email' },
+                { icon: Github, url: 'https://github.com/laddasiddharth', label: 'GitHub', color: 'hover:text-foreground' },
+                { icon: Linkedin, url: 'https://linkedin.com/in/siddharth-ladda', label: 'LinkedIn', color: 'hover:text-[#0A66C2]' },
+                { icon: Instagram, url: 'https://instagram.com/siddharthladda', label: 'Instagram', color: 'hover:text-[#E4405F]' },
+                { icon: Mail, url: 'mailto:siddharthladda@gmail.com', label: 'Email', color: 'hover:text-accent' },
               ].map((link, idx) => {
                 const IconComponent = link.icon;
                 return (
@@ -53,10 +53,17 @@ export default function Contact() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl border border-border/50 text-muted-foreground hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+                    className={`flex items-center gap-4 p-5 rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm transition-all duration-300 group hover:border-accent/30 hover:bg-accent/5 hover:-translate-y-1 hover:shadow-glow-sm`}
                     aria-label={link.label}
                   >
-                    <IconComponent className="h-5 w-5" />
+                    <div className={`p-3 rounded-xl bg-accent/10 text-muted-foreground group-hover:bg-accent/20 transition-all duration-300 ${link.color}`}>
+                      <IconComponent className="h-6 w-6" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-semibold text-foreground group-hover:text-foreground transition-colors duration-300">
+                        {link.label}
+                      </span>
+                    </div>
                   </a>
                 );
               })}
