@@ -29,7 +29,7 @@ export default function Education() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   return (
-    <section id="education" className="relative py-10 sm:py-14">
+    <section className="relative py-24 sm:py-28">
       <div className="absolute top-1/2 -left-40 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px] pointer-events-none" />
       <div ref={sectionRef} className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">

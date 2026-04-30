@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Moon, Sun, Monitor, Menu, X } from 'lucide-react';
-import { useActiveSection } from '../hooks/useScrollReveal';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 type Theme = 'system' | 'dark' | 'light';
 
@@ -30,17 +30,20 @@ export default function Header() {
     return 'system';
   });
 
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   const navItems = [
-    { label: 'Home', id: 'home' },
-    { label: 'About', id: 'about' },
-    { label: 'Skills', id: 'skills' },
-    { label: 'Projects', id: 'projects' },
-    { label: 'Education', id: 'education' },
-    { label: 'Contact', id: 'contact' },
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
+    { label: 'Skills', path: '/skills' },
+    { label: 'Projects', path: '/projects' },
+    { label: 'Education', path: '/education' },
+    { label: 'Contact', path: '/contact' },
   ];
 
-  const sectionIds = navItems.map(item => item.id);
-  const activeSection = useActiveSection(sectionIds);
+  const getIsActive = (path: string) =>
+    path === '/' ? pathname === '/' : pathname.startsWith(path);
 
   const themeOptions: { value: Theme; label: string; icon: React.ReactNode }[] = [
     { value: 'system', label: 'System', icon: <Monitor className="h-4 w-4" /> },
@@ -78,15 +81,10 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  const handleNavClick = useCallback((id: string) => {
+  const handleNavClick = useCallback((path: string) => {
     setMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80;
-      const top = element.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  }, []);
+    navigate(path);
+  }, [navigate]);
 
   const currentThemeIcon = theme === 'dark' ? <Moon className="h-4 w-4" /> : theme === 'light' ? <Sun className="h-4 w-4" /> : <Monitor className="h-4 w-4" />;
 
@@ -109,11 +107,11 @@ export default function Header() {
         {/* Desktop Nav Items */}
         <ul className="hidden md:flex items-center px-2 order-1 pointer-events-auto">
           {navItems.map((item) => {
-            const isActive = activeSection === item.id;
+            const isActive = getIsActive(item.path);
             return (
-              <li key={item.id}>
+              <li key={item.path}>
                 <button
-                  onClick={() => handleNavClick(item.id)}
+                  onClick={() => handleNavClick(item.path)}
                   className={`relative px-4 py-1.5 text-sm rounded-full transition-colors duration-300 ${
                     isActive
                       ? 'bg-foreground text-background font-medium'
@@ -177,11 +175,11 @@ export default function Header() {
           }`}>
             <ul className="flex flex-col p-2">
               {navItems.map((item) => {
-                const isActive = activeSection === item.id;
+                const isActive = getIsActive(item.path);
                 return (
-                  <li key={item.id}>
+                  <li key={item.path}>
                     <button
-                      onClick={() => handleNavClick(item.id)}
+                      onClick={() => handleNavClick(item.path)}
                       className={`w-full text-left px-4 py-2.5 text-sm rounded-lg transition-colors duration-300 ${
                         isActive
                           ? 'bg-foreground/10 text-foreground font-medium'

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Routes, Route } from "react-router-dom";
 import Lenis from "lenis";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -8,6 +9,7 @@ import Projects from "./components/Projects";
 import Education from "./components/Education";
 import Contact from "./components/Contact";
 import Background from "./components/Background";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const lenisRef = useRef<Lenis | null>(null);
@@ -40,17 +42,20 @@ function App() {
   return (
     <div className="bg-background text-foreground relative min-h-screen">
       <Background />
+      <ScrollToTop />
 
-      {/* Content */}
+      {/* Shared layout */}
       <div className="relative z-10">
         <Header />
         <main>
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Education />
-          <Contact />
+          <Routes>
+            <Route path="/" element={<Hero />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/skills" element={<Skills />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/education" element={<Education />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
         </main>
       </div>
     </div>
@@ -58,3 +63,4 @@ function App() {
 }
 
 export default App;
+

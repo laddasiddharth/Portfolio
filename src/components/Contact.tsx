@@ -5,7 +5,7 @@ export default function Contact() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   return (
-    <section id="contact" className="relative pt-10 pb-40 sm:pt-14 sm:pb-25">
+    <section className="relative min-h-[calc(100vh-80px)] flex items-center py-24 sm:py-28">
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px] pointer-events-none" />
       <div ref={sectionRef} className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">

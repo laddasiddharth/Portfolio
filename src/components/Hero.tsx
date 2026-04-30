@@ -1,8 +1,10 @@
-import { Github, Linkedin, Instagram, Mail, FileText, ArrowDown } from 'lucide-react';
+import { Github, Linkedin, Instagram, Mail, FileText, ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useNavigate } from 'react-router-dom';
 
 export default function Hero() {
+  const navigate = useNavigate();
   const titles = ["Software Engineer", "AI Enthusiast", "Full-Stack Developer", "Explorer"];
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
   const [greeting, setGreeting] = useState('');
@@ -54,18 +56,11 @@ export default function Hero() {
     { icon: Mail, url: 'mailto:siddharthladda@gmail.com', label: 'Email' },
   ];
 
-  const scrollToProjects = () => {
-    const el = document.getElementById('projects');
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 20;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-  };
 
   return (
     <section
       id="home"
-      className="relative min-h-[85vh] flex items-center justify-center pt-8 pb-10 overflow-hidden"
+      className="relative min-h-[calc(100vh-80px)] flex items-center justify-center pt-24 pb-10 overflow-hidden"
     >
       {/* Ambient glow effects */}
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
@@ -125,11 +120,11 @@ export default function Hero() {
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row items-center md:items-start gap-4 pt-2">
                 <button
-                  onClick={scrollToProjects}
+                  onClick={() => navigate('/projects')}
                   className="group w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-accent to-primary text-white rounded-xl font-semibold hover:shadow-glow-lg transition-all duration-400 flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
                 >
                   View Projects
-                  <ArrowDown className="h-4 w-4 group-hover:translate-y-1 transition-transform duration-300" />
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
                 </button>
                 <a
                   href="/assets/Siddharth_Ladda_Resume.pdf"
