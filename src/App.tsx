@@ -10,6 +10,7 @@ import Education from "./components/Education";
 import Contact from "./components/Contact";
 import Background from "./components/Background";
 import ScrollToTop from "./components/ScrollToTop";
+import Footer from "./components/Footer";
 import { LenisContext } from "./lib/LenisContext";
 
 function App() {
@@ -42,12 +43,12 @@ function App() {
 
   return (
     <LenisContext.Provider value={{ lenis }}>
-      <div className="bg-background text-foreground relative min-h-screen">
+      <div className="bg-background text-foreground relative min-h-screen flex flex-col">
         <Background />
         <ScrollToTop />
 
         {/* Shared layout */}
-        <div className="relative z-10">
+        <div className="relative z-10 flex-1">
           <Header />
           <main>
             <Routes>
@@ -59,6 +60,8 @@ function App() {
             </Routes>
           </main>
         </div>
+        
+        <Footer />
       </div>
     </LenisContext.Provider>
   );
