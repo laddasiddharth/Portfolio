@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -9,21 +9,37 @@ import Projects from "./components/Projects";
 import Education from "./components/Education";
 import Contact from "./components/Contact";
 import Background from "./components/Background";
-import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
 import { LenisContext } from "./lib/LenisContext";
+(function initTheme() {
+  const stored = localStorage.getItem('theme');
+  const isDark = stored !== 'light'; // Default dark unless explicitly set light
+  if (isDark) {
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
+  } else {
+    document.documentElement.classList.add('light');
+    document.documentElement.classList.remove('dark');
+  }
+})();
 
 function App() {
   const [lenis, setLenis] = useState<Lenis | null>(null);
-
-  // Initialize Lenis smooth scroll
+  const location = useLocation();
+  useEffect(() => {
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname, lenis]);
   useEffect(() => {
     const instance = new Lenis({
-      duration: 1.4,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 0.9,
       touchMultiplier: 2,
     });
 
@@ -43,14 +59,11 @@ function App() {
 
   return (
     <LenisContext.Provider value={{ lenis }}>
-      <div className="bg-background text-foreground relative min-h-screen flex flex-col">
+      <div style={{ background: 'var(--background)', color: 'var(--foreground)', minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
         <Background />
-        <ScrollToTop />
-
-        {/* Shared layout */}
-        <div className="relative z-10 flex-1">
+        <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Header />
-          <main>
+          <main style={{ flex: 1 }}>
             <Routes>
               <Route path="/" element={<Hero />} />
               <Route path="/about" element={<><About /><Skills /></>} />
@@ -59,13 +72,11 @@ function App() {
               <Route path="/contact" element={<Contact />} />
             </Routes>
           </main>
+          <Footer />
         </div>
-        
-        <Footer />
       </div>
     </LenisContext.Provider>
   );
 }
 
 export default App;
-

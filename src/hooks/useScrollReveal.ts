@@ -59,8 +59,6 @@ export function useActiveSection(sectionIds: string[]) {
           } else {
             visibleSections.delete(id);
           }
-
-          // Set the most visible section as active
           let maxRatio = 0;
           let maxId = '';
           visibleSections.forEach((ratio, sectionId) => {

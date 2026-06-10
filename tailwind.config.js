@@ -11,51 +11,18 @@ export default {
             }
         },
         extend: {
+            fontFamily: {
+                serif: ['Playfair Display', 'Georgia', 'serif'],
+                mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                sans: ['Inter', '-apple-system', 'sans-serif'],
+            },
             colors: {
-                border: 'oklch(var(--border))',
-                input: 'oklch(var(--input))',
-                ring: 'oklch(var(--ring) / <alpha-value>)',
-                background: 'oklch(var(--background))',
-                foreground: 'oklch(var(--foreground))',
-                primary: {
-                    DEFAULT: 'oklch(var(--primary) / <alpha-value>)',
-                    foreground: 'oklch(var(--primary-foreground))'
-                },
-                secondary: {
-                    DEFAULT: 'oklch(var(--secondary) / <alpha-value>)',
-                    foreground: 'oklch(var(--secondary-foreground))'
-                },
-                destructive: {
-                    DEFAULT: 'oklch(var(--destructive) / <alpha-value>)',
-                    foreground: 'oklch(var(--destructive-foreground))'
-                },
-                muted: {
-                    DEFAULT: 'oklch(var(--muted) / <alpha-value>)',
-                    foreground: 'oklch(var(--muted-foreground) / <alpha-value>)'
-                },
-                accent: {
-                    DEFAULT: 'oklch(var(--accent) / <alpha-value>)',
-                    foreground: 'oklch(var(--accent-foreground))'
-                },
-                popover: {
-                    DEFAULT: 'oklch(var(--popover))',
-                    foreground: 'oklch(var(--popover-foreground))'
-                },
-                card: {
-                    DEFAULT: 'oklch(var(--card))',
-                    foreground: 'oklch(var(--card-foreground))'
-                },
-            },
-            borderRadius: {
-                lg: 'var(--radius)',
-                md: 'calc(var(--radius) - 2px)',
-                sm: 'calc(var(--radius) - 4px)'
-            },
-            boxShadow: {
-                xs: '0 1px 2px 0 rgba(0,0,0,0.05)',
-                glow: '0 0 20px rgba(168, 85, 247, 0.3)',
-                'glow-lg': '0 0 40px rgba(168, 85, 247, 0.4)',
-                'card-hover': '0 20px 60px -15px rgba(168, 85, 247, 0.2)',
+                border: 'var(--border)',
+                background: 'var(--background)',
+                foreground: 'var(--foreground)',
+                card: 'var(--card)',
+                muted: 'var(--muted)',
+                accent: 'var(--accent)',
             },
             keyframes: {
                 'accordion-down': {
@@ -66,17 +33,20 @@ export default {
                     from: { height: 'var(--radix-accordion-content-height)' },
                     to: { height: '0' }
                 },
-                'blob': {
-                    '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                    '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                    '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                    '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                }
+                'fadeUp': {
+                    from: { opacity: '0', transform: 'translateY(24px)' },
+                    to: { opacity: '1', transform: 'translateY(0)' },
+                },
+                'pulse': {
+                    '0%, 100%': { opacity: '1' },
+                    '50%': { opacity: '0.4' },
+                },
             },
             animation: {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
-                'blob': 'blob 7s infinite alternate ease-in-out',
+                'fadeUp': 'fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                'pulse': 'pulse 2s ease-in-out infinite',
             }
         }
     },

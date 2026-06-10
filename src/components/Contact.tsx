@@ -1,76 +1,191 @@
-import { Mail, Github, Linkedin, Instagram, Phone } from 'lucide-react';
-import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useEffect, useRef, useState } from 'react';
+import { Copy, Check, ExternalLink, Github, Mail, Linkedin, Phone } from 'lucide-react';
 
 export default function Contact() {
-  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
+  const sectionRef = useRef<HTMLElement>(null);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.reveal, .reveal-left').forEach(el => el.classList.add('visible'));
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText('siddharthladda@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const links = [
+    {
+      icon: Github,
+      label: 'GitHub',
+      sublabel: '@laddasiddharth',
+      desc: 'Code, experiments, and unfinished systems',
+      href: 'https://github.com/laddasiddharth',
+    },
+    {
+      icon: Linkedin,
+      label: 'LinkedIn',
+      sublabel: 'siddharth-ladda',
+      desc: 'Professional profile and connections',
+      href: 'https://linkedin.com/in/siddharth-ladda',
+    },
+    {
+      icon: Mail,
+      label: 'Email',
+      sublabel: 'siddharthladda@gmail.com',
+      desc: 'Best way to reach me — usually reply same day',
+      href: 'mailto:siddharthladda@gmail.com',
+    },
+    {
+      icon: Phone,
+      label: 'Phone',
+      sublabel: '+91 99891 11900',
+      desc: 'Available during IST business hours',
+      href: 'tel:+919989111900',
+    },
+  ];
 
   return (
-    <section className="relative pt-24 sm:pt-28 pb-10 sm:pb-12">
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[150px] pointer-events-none" />
-      <div ref={sectionRef} className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className={`text-center mb-10 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="section-heading">Get In <span className="gradient-text">Touch</span></h2>
-            <p className="section-subheading">Looking to collaborate? Reach out to discuss your next project, idea, or opportunity.</p>
+    <section
+      ref={sectionRef}
+      style={{ paddingTop: 'calc(56px + 4rem)', paddingBottom: '6rem' }}
+    >
+      <div
+        className="container-editorial"
+        style={{ paddingBottom: '3rem', borderBottom: '1px solid var(--border)' }}
+      >
+        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '1rem' }}>
+          CONTACT / GET IN TOUCH
+        </div>
+        <h1
+          className="reveal stagger-1"
+          style={{
+            fontFamily: 'Playfair Display, serif',
+            fontWeight: 900,
+            fontSize: 'clamp(2.5rem, 7vw, 7rem)',
+            lineHeight: 0.95,
+            letterSpacing: '-0.03em',
+            color: 'var(--foreground)',
+          }}
+        >
+          Let's Build<br />Something Real.
+        </h1>
+      </div>
+      <div className="container-editorial" style={{ paddingTop: '4rem', maxWidth: '42rem' }}>
+        <div className="reveal stagger-1">
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '1.5rem' }}>
+            FIND ME ON
           </div>
-
-          {/* Contact cards row */}
-          <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <a href="mailto:siddharthladda@gmail.com" className="flex items-center gap-4 p-5 glass-card rounded-xl group">
-              <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300">
-                <Mail className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-0.5">Email</p>
-                <p className="text-foreground font-medium group-hover:text-accent transition-colors duration-300 text-sm">siddharthladda@gmail.com</p>
-              </div>
-            </a>
-            <a href="tel:+919989111900" className="flex items-center gap-4 p-5 glass-card rounded-xl group">
-              <div className="p-3 rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300">
-                <Phone className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium mb-0.5">Phone</p>
-                <p className="text-foreground font-medium group-hover:text-accent transition-colors duration-300 text-sm">+91 9989111900</p>
-              </div>
-            </a>
-          </div>
-
-          {/* Social links grid */}
-          <div className={`transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <p className="text-center text-sm font-semibold uppercase tracking-widest text-muted-foreground/60 mb-8">Find me on</p>
-            <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
-              {[
-                { icon: Github, url: 'https://github.com/laddasiddharth', label: 'GitHub', color: 'hover:text-foreground' },
-                { icon: Linkedin, url: 'https://linkedin.com/in/siddharth-ladda', label: 'LinkedIn', color: 'hover:text-[#0A66C2]' },
-                { icon: Instagram, url: 'https://instagram.com/siddharthladda', label: 'Instagram', color: 'hover:text-[#E4405F]' },
-                { icon: Mail, url: 'mailto:siddharthladda@gmail.com', label: 'Email', color: 'hover:text-accent' },
-              ].map((link, idx) => {
-                const IconComponent = link.icon;
+            <div
+              className="social-grid"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: '1rem',
+              }}
+            >
+              {links.map((link) => {
+                const Icon = link.icon;
                 return (
                   <a
-                    key={idx}
-                    href={link.url}
+                    key={link.label}
+                    href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex items-center gap-4 p-5 rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm transition-all duration-300 group hover:border-accent/30 hover:bg-accent/5 hover:-translate-y-1 hover:shadow-glow-sm`}
-                    aria-label={link.label}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '1.25rem',
+                      padding: '1.5rem',
+                      background: 'var(--card)',
+                      border: '1px solid var(--border)',
+                      borderRadius: '0.75rem',
+                      textDecoration: 'none',
+                      transition: 'border-color 0.2s, background 0.2s',
+                    }}
+                    onMouseEnter={e => {
+                      const el = e.currentTarget as HTMLElement;
+                      el.style.borderColor = 'var(--accent)';
+                      el.style.background = 'var(--muted)';
+                    }}
+                    onMouseLeave={e => {
+                      const el = e.currentTarget as HTMLElement;
+                      el.style.borderColor = 'var(--border)';
+                      el.style.background = 'var(--card)';
+                    }}
                   >
-                    <div className={`p-3 rounded-xl bg-accent/10 text-muted-foreground group-hover:bg-accent/20 transition-all duration-300 ${link.color}`}>
-                      <IconComponent className="h-6 w-6" />
+                    <div
+                      style={{
+                        width: 48,
+                        height: 48,
+                        borderRadius: '0.5rem',
+                        background: 'rgba(var(--accent-rgb), 0.1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'var(--accent)',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Icon size={22} />
                     </div>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-semibold text-foreground group-hover:text-foreground transition-colors duration-300">
-                        {link.label}
-                      </span>
+                    <div style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '1rem', color: 'var(--foreground)' }}>
+                      {link.label}
                     </div>
                   </a>
                 );
               })}
             </div>
-          </div>
+            <a
+              href="/assets/Siddharth_Ladda_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '1.25rem 1.5rem',
+                marginTop: '1.5rem',
+                background: 'transparent',
+                border: '1px solid var(--border)',
+                textDecoration: 'none',
+                transition: 'border-color 0.2s',
+              }}
+              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)')}
+              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.borderColor = 'var(--border)')}
+            >
+              <div>
+                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem', color: 'var(--muted-foreground)', marginBottom: '0.35rem', letterSpacing: '0.08em' }}>
+                  RESUME
+                </div>
+                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.875rem', fontWeight: 500, color: 'var(--foreground)' }}>
+                  Download PDF
+                </div>
+              </div>
+              <ExternalLink size={16} style={{ color: 'var(--muted-foreground)' }} />
+            </a>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 600px) {
+          .social-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

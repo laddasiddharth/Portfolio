@@ -1,161 +1,513 @@
-import { Github, Linkedin, Instagram, Mail, FileText, ArrowRight } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ArrowRight, Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 
 export default function Hero() {
   const navigate = useNavigate();
-  const titles = ["Software Engineer", "AI Enthusiast", "Full-Stack Developer", "Explorer"];
-  const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
-  const [greeting, setGreeting] = useState('');
-  const [displayText, setDisplayText] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
-
-  const { ref: heroRef, isVisible } = useScrollReveal({ threshold: 0.1 });
-
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [time, setTime] = useState('');
   useEffect(() => {
-    const updateGreeting = () => {
-      const hour = new Date().getHours();
-      if (hour >= 5 && hour < 12) setGreeting('Good Morning');
-      else if (hour >= 12 && hour < 18) setGreeting('Good Afternoon');
-      else setGreeting('Good Evening');
+    const update = () => {
+      const now = new Date();
+      setTime(now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' }));
     };
-    updateGreeting();
-    const greetingInterval = setInterval(updateGreeting, 60000);
-    return () => clearInterval(greetingInterval);
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
   }, []);
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTitleIndex((prevIndex) => (prevIndex + 1) % titles.length);
-    }, 3000);
-    return () => clearInterval(interval);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.reveal, .reveal-left').forEach(el => {
+              el.classList.add('visible');
+            });
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    const currentTitle = titles[currentTitleIndex];
-    let charIndex = 0;
-    setDisplayText('');
-    setIsTyping(true);
-    const typeInterval = setInterval(() => {
-      if (charIndex <= currentTitle.length) {
-        setDisplayText(currentTitle.slice(0, charIndex));
-        charIndex++;
-      } else {
-        clearInterval(typeInterval);
-        setIsTyping(false);
-      }
-    }, 60);
-    return () => clearInterval(typeInterval);
-  }, [currentTitleIndex]);
 
   const socialLinks = [
-    { icon: Github, url: 'https://github.com/laddasiddharth', label: 'GitHub' },
-    { icon: Linkedin, url: 'https://linkedin.com/in/siddharth-ladda', label: 'LinkedIn' },
-    { icon: Instagram, url: 'https://instagram.com/siddharthladda', label: 'Instagram' },
-    { icon: Mail, url: 'mailto:siddharthladda@gmail.com', label: 'Email' },
+    { icon: Github, label: 'GitHub', href: 'https://github.com/laddasiddharth' },
+    { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/in/siddharth-ladda' },
+    { icon: Mail, label: 'Email', href: 'mailto:siddharthladda@gmail.com' },
   ];
 
-
   return (
-    <section
-      id="home"
-      className="relative min-h-[calc(100vh-80px)] flex items-center justify-center pt-24 pb-10 overflow-hidden"
-    >
-      {/* Ambient glow effects */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div ref={heroRef} className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`max-w-6xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-          <div className="flex flex-col-reverse md:flex-row items-center gap-12 md:gap-16">
-
-            {/* Left — Content */}
-            <div className="flex-1 text-center md:text-left space-y-6">
-              {/* Greeting */}
-              <p className="text-base sm:text-lg text-muted-foreground font-medium tracking-wide animate-fade-in">
-                ✨ {greeting}!
-              </p>
-
-              {/* Name */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
-                <span className="gradient-text">Siddharth Ladda</span>
+    <div ref={sectionRef} style={{ background: 'var(--background)' }}>
+      <section
+        style={{
+          minHeight: 'calc(100vh - 56px)',
+          paddingTop: '56px',
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <div
+          className="container-editorial"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingTop: '2.5rem',
+            paddingBottom: '2rem',
+            borderBottom: '1px solid var(--border)',
+            flexWrap: 'wrap',
+            gap: '1rem',
+          }}
+        >
+          <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+            {['B.Tech Computer Science', 'Full-Stack Engineer', 'AI Enthusiast'].map((tag, i) => (
+              <span
+                key={i}
+                style={{
+                  fontFamily: 'JetBrains Mono, monospace',
+                  fontSize: '0.7rem',
+                  color: i === 0 ? 'var(--accent)' : 'var(--muted-foreground)',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.7rem', color: 'var(--muted-foreground)' }}>
+              IST {time}
+            </span>
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.7rem', color: 'var(--muted-foreground)' }}>
+              Coimbatore, India
+            </span>
+          </div>
+        </div>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div className="container-editorial" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+            <div
+              className="reveal stagger-1"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '3rem',
+                marginBottom: '2.5rem',
+                flexWrap: 'wrap',
+              }}
+            >
+              <h1
+                className="hero-name"
+                style={{ marginBottom: '0', flex: 1, minWidth: '300px' }}
+              >
+                Siddharth Ladda
               </h1>
-
-              {/* Animated Subtitle — Typewriter */}
-              <div className="h-10 sm:h-12 flex items-center justify-center md:justify-start">
-                <p className="text-xl sm:text-2xl md:text-3xl font-light tracking-wide">
-                  <span className="text-accent font-semibold">
-                    {displayText}
-                    <span className={`inline-block w-[2px] h-5 sm:h-6 bg-accent ml-0.5 align-middle ${isTyping ? 'animate-pulse' : 'opacity-0'}`} />
-                  </span>
+              <div
+                style={{
+                  width: '280px',
+                  aspectRatio: '4/5',
+                  borderRadius: '1rem',
+                  overflow: 'hidden',
+                  border: '1px solid var(--border)',
+                  flexShrink: 0,
+                }}
+              >
+                <img
+                  src="/assets/photo_1.jpeg"
+                  alt="Siddharth Ladda"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'bottom' }}
+                />
+              </div>
+            </div>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr 1fr',
+                gap: '3rem',
+                borderTop: '1px solid var(--border)',
+                paddingTop: '2.5rem',
+              }}
+              className="hero-bottom-grid"
+            >
+              <div className="reveal stagger-2">
+                <p className="hero-description" style={{ fontSize: 'clamp(1rem, 1.5vw, 1.3rem)' }}>
+                  Building things people rely on — from secure backends to intelligent interfaces.
                 </p>
               </div>
-
-              {/* Description */}
-              <p className="text-base text-muted-foreground max-w-lg leading-relaxed">
-                Computer Science undergraduate and full-stack developer driven by a passion for building scalable web applications and integrating practical AI solutions. Experienced in React, Node.js, and Python, with a focus on delivering projects from concept to deployment.
-              </p>
-
-              {/* Social Links as pill buttons */}
-              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
-                {socialLinks.map((link, idx) => {
-                  const IconComponent = link.icon;
-                  return (
-                    <a
-                      key={idx}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border text-sm font-medium text-foreground/80 hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all duration-300 hover:scale-[1.03]"
-                      aria-label={link.label}
-                    >
-                      <IconComponent className="h-4 w-4" />
-                      {link.label}
-                    </a>
-                  );
-                })}
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row items-center md:items-start gap-4 pt-2">
+              <div className="reveal stagger-3" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 <button
                   onClick={() => navigate('/projects')}
-                  className="group w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-accent to-primary text-white rounded-xl font-semibold hover:shadow-glow-lg transition-all duration-400 flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
+                  className="cta-button-primary"
+                  style={{ width: '100%', justifyContent: 'center' }}
                 >
-                  View Projects
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                  View Projects <ArrowRight size={14} />
                 </button>
                 <a
                   href="/assets/Siddharth_Ladda_Resume.pdf"
                   target="_blank"
-                  className="group w-full sm:w-auto px-8 py-3.5 border-2 border-accent/40 rounded-xl font-semibold text-foreground hover:bg-accent/10 hover:border-accent/70 transition-all duration-400 flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-[0.98]"
+                  rel="noopener noreferrer"
+                  className="cta-button-secondary"
+                  style={{ width: '100%', justifyContent: 'center', textDecoration: 'none' }}
                 >
-                  <FileText className="h-4 w-4" />
                   Resume
                 </a>
               </div>
-            </div>
-
-            {/* Right — Photo */}
-            <div className="flex-shrink-0">
-              <div className="relative group">
-                <div className="absolute -inset-3 bg-gradient-to-br from-accent via-primary to-accent rounded-2xl opacity-30 group-hover:opacity-50 blur-2xl transition-all duration-700 animate-pulse-glow" />
-                <div className="relative rounded-2xl overflow-hidden border-2 border-border/50 shadow-2xl group-hover:border-accent/40 transition-all duration-500">
-                  <img
-                    src="/assets/photo_1.jpeg"
-                    alt="Siddharth Ladda"
-                    className="w-72 h-80 sm:w-80 sm:h-[22rem] md:w-[22rem] md:h-[26rem] object-cover object-[center_80%] group-hover:scale-105 transition-transform duration-700"
-                    loading="eager"
-                    decoding="async"
-                  />
+              <div className="reveal stagger-4" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                  {socialLinks.map(link => {
+                    const Icon = link.icon;
+                    return (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={link.label}
+                        style={{
+                          width: 36,
+                          height: 36,
+                          border: '1px solid var(--border)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: 'var(--muted-foreground)',
+                          textDecoration: 'none',
+                          transition: 'border-color 0.2s, color 0.2s',
+                        }}
+                        onMouseEnter={e => {
+                          e.currentTarget.style.borderColor = 'var(--accent)';
+                          e.currentTarget.style.color = 'var(--accent)';
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.borderColor = 'var(--border)';
+                          e.currentTarget.style.color = 'var(--muted-foreground)';
+                        }}
+                      >
+                        <Icon size={15} />
+                      </a>
+                    );
+                  })}
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent)', flexShrink: 0 }} />
+                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.72rem', color: 'var(--muted-foreground)' }}>
+                    Open to Engineering Internships — Summer 2026
+                  </span>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
+
+
+      </section>
+      <section style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
+        <div
+          className="container-editorial featured-banner-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '200px 1fr auto',
+            gap: '3rem',
+            padding: '3rem 2rem',
+            alignItems: 'center',
+          }}
+        >
+          <div>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
+              FEATURED BUILD
+            </div>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>
+              Security · 2024
+            </div>
+          </div>
+          <div>
+            <h2 style={{
+              fontFamily: 'Playfair Display, serif',
+              fontWeight: 800,
+              fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
+              color: 'var(--foreground)',
+              marginBottom: '0.5rem',
+              lineHeight: 1.1,
+            }}>
+              Zenith Vault — Zero-Knowledge Password Manager
+            </h2>
+            <p style={{ fontSize: '0.875rem', color: 'var(--muted-foreground)', lineHeight: 1.6 }}>
+              Client-side AES-256-GCM encryption with k-Anonymity breach detection. Multi-platform support with browser extension.
+            </p>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', flexShrink: 0 }}>
+            <a
+              href="https://zero-knowledge-password-manager-frontend.onrender.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cta-button-primary"
+              style={{ fontSize: '0.8rem' }}
+            >
+              Live Demo <ExternalLink size={13} />
+            </a>
+            <a
+              href="https://github.com/SE-Project-Team-13/Zero-Knowledge-Password-Manager"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cta-button-secondary"
+              style={{ fontSize: '0.8rem' }}
+            >
+              <Github size={13} /> GitHub
+            </a>
+          </div>
+        </div>
+
+        <style>{`
+          @media (max-width: 768px) {
+            .featured-banner-grid {
+              grid-template-columns: 1fr !important;
+              gap: 1.5rem !important;
+            }
+          }
+        `}</style>
+      </section>
+      <ProjectsPreview navigate={navigate} />
+      <StatsStrip />
+
+    </div>
+  );
+}
+/* Projects Preview — Card-based horizontal section
+  ---------------------------------------- */
+function ProjectsPreview({ navigate }: { navigate: (path: string) => void }) {
+  const projects = [
+    {
+      num: '01',
+      name: 'Zenith Vault',
+      category: 'Security',
+      desc: 'Zero-knowledge password manager with client-side AES-256-GCM encryption and k-Anonymity breach detection.',
+      tech: ['Next.js', 'Node.js', 'MongoDB', 'Cryptography'],
+      href: 'https://zero-knowledge-password-manager-frontend.onrender.com/',
+    },
+    {
+      num: '02',
+      name: 'Notivos-AI',
+      category: 'AI / Desktop',
+      desc: 'AI-powered desktop note-taking app with Gemini integration for smart summarization and text-to-speech.',
+      tech: ['Electron.js', 'JavaScript', 'Gemini API'],
+      href: 'https://github.com/laddasiddharth/Notivos-AI',
+    },
+    {
+      num: '03',
+      name: 'FreshFetch',
+      category: 'Frontend',
+      desc: 'Modern grocery shopping app with product listings, cart management, and a fully responsive interface.',
+      tech: ['React', 'JavaScript', 'Tailwind CSS'],
+      href: 'https://fresh-fetch.vercel.app/',
+    },
+    {
+      num: '04',
+      name: 'GradeAI Predictor',
+      category: 'ML / Data',
+      desc: 'Student performance prediction using regression models with data visualization for academic insights.',
+      tech: ['Python', 'Scikit-learn', 'Pandas'],
+      href: 'https://github.com/laddasiddharth/GradeAI-Student-Predictor',
+    },
+  ];
+
+  return (
+    <section style={{ paddingTop: '5rem', paddingBottom: '5rem', borderBottom: '1px solid var(--border)' }}>
+      <div className="container-editorial">
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '3rem', flexWrap: 'wrap', gap: '1rem' }}>
+          <div>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>
+              SELECTED WORK
+            </div>
+            <h2
+              style={{
+                fontFamily: 'Playfair Display, serif',
+                fontWeight: 800,
+                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                color: 'var(--foreground)',
+                lineHeight: 1.05,
+              }}
+            >
+              Projects That Had To Work.
+            </h2>
+          </div>
+          <button
+            onClick={() => navigate('/projects')}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontFamily: 'JetBrains Mono, monospace',
+              fontSize: '0.8rem',
+              color: 'var(--accent)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.5rem 0',
+              borderBottom: '1px solid var(--accent)',
+              transition: 'gap 0.2s',
+            }}
+            onMouseEnter={e => ((e.currentTarget as HTMLElement).style.gap = '1rem')}
+            onMouseLeave={e => ((e.currentTarget as HTMLElement).style.gap = '0.5rem')}
+          >
+            View All Projects <ArrowRight size={13} />
+          </button>
+        </div>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '1px',
+            background: 'var(--border)',
+          }}
+          className="project-cards-grid"
+        >
+          {projects.map((p) => (
+            <ProjectCard key={p.num} project={p} />
+          ))}
+        </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .project-cards-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .project-cards-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
+
+function ProjectCard({ project }: { project: { num: string; name: string; category: string; desc: string; tech: string[]; href: string } }) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <a
+      href={project.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        background: hovered ? 'var(--card)' : 'var(--background)',
+        padding: '2rem',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        textDecoration: 'none',
+        transition: 'background 0.25s',
+        cursor: 'pointer',
+        minHeight: '280px',
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--accent)' }}>
+          {project.num}
+        </span>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--muted-foreground)' }}>
+          {project.category}
+        </span>
+      </div>
+
+      <h3 style={{
+        fontFamily: 'Playfair Display, serif',
+        fontWeight: 700,
+        fontSize: '1.4rem',
+        color: hovered ? 'var(--accent)' : 'var(--foreground)',
+        lineHeight: 1.2,
+        transition: 'color 0.25s',
+        flex: 1,
+      }}>
+        {project.name}
+      </h3>
+
+      <p style={{ fontSize: '0.825rem', color: 'var(--muted-foreground)', lineHeight: 1.65 }}>
+        {project.desc}
+      </p>
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: 'auto' }}>
+        {project.tech.map(t => (
+          <span key={t} className="tech-pill">{t}</span>
+        ))}
+      </div>
+
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.4rem',
+        fontFamily: 'JetBrains Mono, monospace',
+        fontSize: '0.7rem',
+        color: 'var(--accent)',
+        opacity: hovered ? 1 : 0,
+        transition: 'opacity 0.25s',
+      }}>
+        Open Project <ArrowRight size={11} />
+      </div>
+    </a>
+  );
+}
+/* Stats Strip
+  ---------------------------------------- */
+function StatsStrip() {
+  const stats = [
+    { value: '7+', label: 'Projects Shipped' },
+    { value: '3', label: 'Open Source' },
+    { value: '4+', label: 'Languages' },
+    { value: '2027', label: 'Graduating' },
+  ];
+
+  return (
+    <section
+      style={{
+        borderBottom: '1px solid var(--border)',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+      }}
+      className="stats-strip"
+    >
+      {stats.map((s, i) => (
+        <div
+          key={i}
+          style={{
+            padding: '2.5rem 2rem',
+            borderRight: i < stats.length - 1 ? '1px solid var(--border)' : 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.35rem',
+          }}
+        >
+          <div style={{
+            fontFamily: 'Playfair Display, serif',
+            fontWeight: 900,
+            fontSize: '2.5rem',
+            color: 'var(--accent)',
+            lineHeight: 1,
+          }}>
+            {s.value}
+          </div>
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.72rem', color: 'var(--muted-foreground)' }}>
+            {s.label}
+          </div>
+        </div>
+      ))}
+
+      <style>{`
+        @media (max-width: 700px) {
+          .stats-strip {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
+

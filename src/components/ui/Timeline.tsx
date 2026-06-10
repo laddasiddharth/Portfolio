@@ -20,10 +20,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
       const container = containerRef.current;
       const containerRect = container.getBoundingClientRect();
-      const viewportCenter = window.innerHeight / 2;
-      
-      // Calculate overall progress through the section
-      const containerTop = containerRect.top;
+      const viewportCenter = window.innerHeight / 2;      const containerTop = containerRect.top;
       const containerHeight = containerRect.height;
       const scrollStart = window.innerHeight * 0.8; // Start when section is 80% down viewport
       const scrollEnd = -containerHeight + window.innerHeight * 0.2; // End when mostly scrolled past
@@ -36,17 +33,11 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         progress = 1;
       }
       
-      setScrollProgress(progress);
-
-      // Find which item is currently in the center of viewport
-      let currentActive = -1;
+      setScrollProgress(progress);      let currentActive = -1;
       itemRefs.current.forEach((item, index) => {
         if (!item) return;
         const rect = item.getBoundingClientRect();
-        const itemCenter = rect.top + rect.height / 2;
-        
-        // Item is active if its center is in the upper half of viewport
-        if (itemCenter <= viewportCenter && itemCenter >= 0) {
+        const itemCenter = rect.top + rect.height / 2;        if (itemCenter <= viewportCenter && itemCenter >= 0) {
           currentActive = index;
         }
       });
@@ -161,15 +152,10 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               </div>
             </div>
           </div>
-        ))}
-        
-        {/* Static timeline line */}
-        <div
+        ))}        <div
           className="absolute md:left-8 left-8 top-0 w-[2px] bg-gradient-to-b from-transparent via-border to-transparent"
           style={{ height: '100%' }}
-        >
-          {/* Scroll-based progress fill - instant updates for smooth fast scrolling */}
-          <div 
+        >          <div 
             className="absolute inset-x-0 top-0 w-[4px] -left-[1px] bg-gradient-to-b from-accent via-accent/80 to-accent/40 shadow-[0_0_15px_3px_rgba(168,85,247,0.6)]"
             style={{ 
               height: `${scrollProgress * 100}%`,
