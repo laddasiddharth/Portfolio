@@ -111,9 +111,6 @@ export default function Skills() {
                 <p style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--foreground)', marginBottom: '0.25rem', fontFamily: 'Inter, sans-serif' }}>
                   {group.category}
                 </p>
-                <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.68rem', color: 'var(--accent)' }}>
-                  {group.count} tools
-                </p>
               </div>
               <div
                 style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}

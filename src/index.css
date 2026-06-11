@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,33 +6,33 @@
 
 
 @layer base {
-  /* Default = dark (matches reference site dark-first approach) */
+  /* Default = dark (Deep Midnight & Coral) */
   :root {
     --radius: 0.5rem;
-    --background: #0d1117;
-    --foreground: #e8e3da;
-    --card: #161b22;
-    --card-foreground: #e8e3da;
-    --border: #21262d;
-    --muted: #1c2128;
-    --muted-foreground: #8b949e;
-    --accent: #2dd4c0;
-    --accent-rgb: 45, 212, 192;
-    --primary: #38bdf8;
+    --background: #080b12;
+    --foreground: #e2e8f0;
+    --card: #0d131f;
+    --card-foreground: #e2e8f0;
+    --border: #1a2333;
+    --muted: #111827;
+    --muted-foreground: #94a3b8;
+    --accent: #ff4757;
+    --accent-rgb: 255, 71, 87;
+    --primary: #fb7185;
   }
 
   /* Dark class explicitly set (same as root for consistency) */
   .dark {
-    --background: #0d1117;
-    --foreground: #e8e3da;
-    --card: #161b22;
-    --card-foreground: #e8e3da;
-    --border: #21262d;
-    --muted: #1c2128;
-    --muted-foreground: #8b949e;
-    --accent: #2dd4c0;
-    --accent-rgb: 45, 212, 192;
-    --primary: #38bdf8;
+    --background: #080b12;
+    --foreground: #e2e8f0;
+    --card: #0d131f;
+    --card-foreground: #e2e8f0;
+    --border: #1a2333;
+    --muted: #111827;
+    --muted-foreground: #94a3b8;
+    --accent: #ff4757;
+    --accent-rgb: 255, 71, 87;
+    --primary: #fb7185;
   }
 
   /* Light mode override */
@@ -99,7 +99,7 @@
    ============================================= */
 
 .font-serif {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .font-mono {
@@ -107,9 +107,9 @@
 }
 
 .editorial-display {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
   line-height: 0.95;
 }
 
@@ -216,21 +216,21 @@
    ============================================= */
 
 .hero-name {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 900;
-  font-size: clamp(5rem, 14vw, 13rem);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(4rem, 10vw, 9rem);
   line-height: 0.9;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.05em;
   color: var(--foreground);
 }
 
 .hero-description {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-  line-height: 1.4;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.5;
   color: var(--foreground);
-  max-width: 42rem;
+  max-width: 32rem;
 }
 
 /* =============================================
@@ -276,9 +276,10 @@
 }
 
 .project-name {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
   font-size: clamp(1.75rem, 3vw, 2.5rem);
+  letter-spacing: -0.02em;
   color: var(--foreground);
   line-height: 1.1;
   transition: color 0.2s;
@@ -341,8 +342,9 @@
 }
 
 .principle-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   font-size: 1.2rem;
   margin-bottom: 0.75rem;
   color: var(--foreground);
@@ -392,11 +394,11 @@
    ============================================= */
 
 .cta-display {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
   font-size: clamp(2.5rem, 7vw, 7rem);
   line-height: 0.95;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
 }
 
 .cta-button-primary {
@@ -404,40 +406,44 @@
   align-items: center;
   gap: 0.75rem;
   background: var(--accent);
-  color: var(--background);
+  color: #fff;
   padding: 1rem 1.75rem;
   font-size: 0.875rem;
   font-family: 'JetBrains Mono', monospace;
-  font-weight: 400;
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
   border: none;
-  transition: opacity 0.2s, transform 0.2s;
+  border-radius: var(--radius);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.2);
 }
 
 .cta-button-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.4);
 }
 
 .cta-button-secondary {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.02);
   color: var(--foreground);
   padding: 1rem 1.75rem;
   font-size: 0.875rem;
   font-family: 'JetBrains Mono', monospace;
   border: 1px solid var(--border);
+  border-radius: var(--radius);
   text-decoration: none;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
+  transition: all 0.3s ease;
 }
 
 .cta-button-secondary:hover {
   border-color: var(--accent);
   color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.05);
 }
 
 /* =============================================
@@ -522,12 +528,12 @@
 }
 
 .quote-block {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(1.5rem, 3vw, 2.25rem);
-  font-weight: 700;
-  font-style: italic;
+  font-weight: 500;
   color: var(--foreground);
   line-height: 1.3;
+  letter-spacing: -0.02em;
 }
 
 .meta-row {
@@ -579,11 +585,12 @@
 }
 
 .note-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
   font-size: clamp(1.5rem, 3vw, 2.25rem);
   color: var(--foreground);
   line-height: 1.2;
+  letter-spacing: -0.02em;
   margin-bottom: 0.75rem;
 }
 
@@ -624,6 +631,26 @@
 @keyframes slideLeft {
   from { opacity: 0; transform: translateX(-20px); }
   to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.1); }
+  50% { box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.3); }
+  100% { box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.1); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glowPulse 3s infinite;
 }
 
 .animate-fade-up {

@@ -57,19 +57,35 @@ export default function Education() {
         <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '1rem' }}>
           EDUCATION TIMELINE
         </div>
-        <h1
-          className="reveal stagger-1"
+        <div 
           style={{
-            fontFamily: 'Playfair Display, serif',
-            fontWeight: 900,
-            fontSize: 'clamp(3.5rem, 9vw, 8rem)',
-            lineHeight: 0.9,
-            letterSpacing: '-0.03em',
-            color: 'var(--foreground)',
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '4rem',
+            alignItems: 'flex-end',
           }}
+          className="edu-header-grid"
         >
-          Academic<br />Journey
-        </h1>
+          <h1
+            className="reveal stagger-1"
+            style={{
+              fontFamily: 'Playfair Display, serif',
+              fontWeight: 900,
+              fontSize: 'clamp(3.5rem, 9vw, 8rem)',
+              lineHeight: 0.9,
+              letterSpacing: '-0.03em',
+              color: 'var(--foreground)',
+              marginBottom: 0,
+            }}
+          >
+            Academic<br />Journey
+          </h1>
+          <div className="reveal stagger-2" style={{ paddingBottom: '0.5rem' }}>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '1rem', color: 'var(--foreground)', lineHeight: 1.7, maxWidth: '30rem' }}>
+              My formal educational background, focusing on computer science, software systems, and the mathematical foundations needed for building robust technology.
+            </p>
+          </div>
+        </div>
       </div>
       <div className="container-editorial" style={{ paddingTop: '4rem' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
@@ -144,6 +160,12 @@ export default function Education() {
       </div>
 
       <style>{`
+        @media (max-width: 900px) {
+          .edu-header-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+          }
+        }
         @media (max-width: 700px) {
           .edu-timeline-row {
             grid-template-columns: 1fr !important;

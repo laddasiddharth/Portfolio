@@ -136,11 +136,11 @@ export default function Projects() {
             <h1
               className="reveal stagger-1"
               style={{
-                fontFamily: 'Playfair Display, serif',
-                fontWeight: 900,
+                fontFamily: 'Space Grotesk, sans-serif',
+                fontWeight: 700,
                 fontSize: 'clamp(4rem, 10vw, 8.5rem)',
                 lineHeight: 0.85,
-                letterSpacing: '-0.03em',
+                letterSpacing: '-0.05em',
                 color: 'var(--foreground)',
               }}
             >
@@ -166,7 +166,7 @@ export default function Projects() {
           className="projects-grid"
         >
           {PROJECTS.map((project, i) => (
-            <ProjectCard key={project.id} project={project} delay={i * 100} />
+            <ProjectCard key={project.id} project={project} index={i} delay={(i % 2) * 100} />
           ))}
         </div>
       </div>
@@ -180,25 +180,35 @@ export default function Projects() {
           .projects-grid {
             grid-template-columns: 1fr !important;
           }
+          .project-card-wrapper {
+            margin-top: 0 !important;
+          }
         }
       `}</style>
     </section>
   );
 }
 
-function ProjectCard({ project, delay }: { project: Project; delay: number }) {
+function ProjectCard({ project, index, delay }: { project: Project; index: number; delay: number }) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <div
-      className="reveal"
+      className="reveal project-card-wrapper"
       style={{
         display: 'flex',
         flexDirection: 'column',
         gap: '1.25rem',
-        paddingTop: '2rem',
-        borderTop: '1px solid var(--border)',
-        transitionDelay: `${delay}ms`,
+        padding: '2.5rem',
+        background: 'rgba(255,255,255,0.02)',
+        borderRadius: '1.5rem',
+        border: '1px solid var(--border)',
+        transitionDelay: hovered ? '0ms' : `${delay}ms`,
+        transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+        transform: hovered ? 'translateY(-8px)' : 'translateY(0)',
+        boxShadow: hovered ? '0 30px 60px rgba(0,0,0,0.5), 0 0 30px rgba(var(--accent-rgb), 0.15)' : '0 10px 30px rgba(0,0,0,0.2)',
+        position: 'relative',
+        zIndex: hovered ? 10 : 1,
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -229,9 +239,10 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
       <div>
         <h2
           style={{
-            fontFamily: 'Playfair Display, serif',
-            fontWeight: 800,
+            fontFamily: 'Space Grotesk, sans-serif',
+            fontWeight: 700,
             fontSize: '1.85rem',
+            letterSpacing: '-0.02em',
             color: hovered ? 'var(--accent)' : 'var(--foreground)',
             lineHeight: 1.15,
             marginBottom: '0.75rem',

@@ -51,155 +51,119 @@ export default function Hero() {
         }}
       >
         <div
-          className="container-editorial"
+          className="container-editorial hero-split-grid"
           style={{
-            display: 'flex',
+            display: 'grid',
+            gridTemplateColumns: '1.2fr 0.8fr',
+            gap: '4rem',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            paddingTop: '2.5rem',
+            width: '100%',
+            paddingTop: '2rem',
             paddingBottom: '2rem',
-            borderBottom: '1px solid var(--border)',
-            flexWrap: 'wrap',
-            gap: '1rem',
           }}
         >
-          <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
-            {['B.Tech Computer Science', 'Full-Stack Engineer', 'AI Enthusiast'].map((tag, i) => (
-              <span
-                key={i}
-                style={{
-                  fontFamily: 'JetBrains Mono, monospace',
-                  fontSize: '0.7rem',
-                  color: i === 0 ? 'var(--accent)' : 'var(--muted-foreground)',
-                  letterSpacing: '0.05em',
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.7rem', color: 'var(--muted-foreground)' }}>
-              IST {time}
-            </span>
-            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.7rem', color: 'var(--muted-foreground)' }}>
-              Coimbatore, India
-            </span>
-          </div>
-        </div>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div className="container-editorial" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
-            <div
-              className="reveal stagger-1"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: '3rem',
-                marginBottom: '2.5rem',
-                flexWrap: 'wrap',
-              }}
+          {/* Left: Typography */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', zIndex: 10 }}>
+            <div className="reveal stagger-1" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)' }} />
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.75rem', color: 'var(--accent)', letterSpacing: '0.05em' }}>IST {time}</span>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.75rem', color: 'var(--muted-foreground)', letterSpacing: '0.05em' }}>— Full-Stack Engineer</span>
+            </div>
+            
+            <h1
+              className="hero-name reveal stagger-2"
+              style={{ marginBottom: '0', lineHeight: 0.85 }}
             >
-              <h1
-                className="hero-name"
-                style={{ marginBottom: '0', flex: 1, minWidth: '300px' }}
-              >
-                Siddharth Ladda
-              </h1>
-              <div
-                style={{
-                  width: '280px',
-                  aspectRatio: '4/5',
-                  borderRadius: '1rem',
-                  overflow: 'hidden',
-                  border: '1px solid var(--border)',
-                  flexShrink: 0,
-                }}
-              >
-                <img
-                  src="/assets/photo_1.jpeg"
-                  alt="Siddharth Ladda"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'bottom' }}
-                />
+              Siddharth<br/>
+              <span style={{ color: 'var(--accent)' }}>Ladda</span>
+            </h1>
+            
+            <p className="hero-description reveal stagger-3" style={{ fontSize: 'clamp(1rem, 1.5vw, 1.25rem)', maxWidth: '30rem' }}>
+              Building things people rely on — from secure backends to intelligent, minimalist interfaces.
+            </p>
+            
+            <div className="reveal stagger-4" style={{ display: 'flex', gap: '1.5rem', marginTop: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <button onClick={() => navigate('/projects')} className="cta-button-primary">
+                View Projects <ArrowRight size={14} />
+              </button>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                {socialLinks.map(link => {
+                  const Icon = link.icon;
+                  return (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.label}
+                      style={{
+                        width: 44,
+                        height: 44,
+                        borderRadius: '50%',
+                        border: '1px solid var(--border)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'var(--muted-foreground)',
+                        textDecoration: 'none',
+                        transition: 'all 0.3s ease',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.borderColor = 'var(--accent)';
+                        e.currentTarget.style.color = 'var(--accent)';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.borderColor = 'var(--border)';
+                        e.currentTarget.style.color = 'var(--muted-foreground)';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                      }}
+                    >
+                      <Icon size={16} />
+                    </a>
+                  );
+                })}
               </div>
             </div>
+          </div>
+          
+          {/* Right: Floating Image */}
+          <div className="reveal-left stagger-3" style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
             <div
+              className="animate-float"
               style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr 1fr',
-                gap: '3rem',
-                borderTop: '1px solid var(--border)',
-                paddingTop: '2.5rem',
+                width: '100%',
+                maxWidth: '400px',
+                aspectRatio: '3/4',
+                borderRadius: '1.5rem',
+                overflow: 'hidden',
+                boxShadow: '0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(var(--accent-rgb), 0.15)',
+                border: '1px solid var(--border)',
+                position: 'relative',
+                zIndex: 5,
               }}
-              className="hero-bottom-grid"
             >
-              <div className="reveal stagger-2">
-                <p className="hero-description" style={{ fontSize: 'clamp(1rem, 1.5vw, 1.3rem)' }}>
-                  Building things people rely on — from secure backends to intelligent interfaces.
-                </p>
-              </div>
-              <div className="reveal stagger-3" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <button
-                  onClick={() => navigate('/projects')}
-                  className="cta-button-primary"
-                  style={{ width: '100%', justifyContent: 'center' }}
-                >
-                  View Projects <ArrowRight size={14} />
-                </button>
-                <a
-                  href="/assets/Siddharth_Ladda_Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cta-button-secondary"
-                  style={{ width: '100%', justifyContent: 'center', textDecoration: 'none' }}
-                >
-                  Resume
-                </a>
-              </div>
-              <div className="reveal stagger-4" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                  {socialLinks.map(link => {
-                    const Icon = link.icon;
-                    return (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={link.label}
-                        style={{
-                          width: 36,
-                          height: 36,
-                          border: '1px solid var(--border)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: 'var(--muted-foreground)',
-                          textDecoration: 'none',
-                          transition: 'border-color 0.2s, color 0.2s',
-                        }}
-                        onMouseEnter={e => {
-                          e.currentTarget.style.borderColor = 'var(--accent)';
-                          e.currentTarget.style.color = 'var(--accent)';
-                        }}
-                        onMouseLeave={e => {
-                          e.currentTarget.style.borderColor = 'var(--border)';
-                          e.currentTarget.style.color = 'var(--muted-foreground)';
-                        }}
-                      >
-                        <Icon size={15} />
-                      </a>
-                    );
-                  })}
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <div style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent)', flexShrink: 0 }} />
-                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.72rem', color: 'var(--muted-foreground)' }}>
-                    Open to Engineering Internships — Summer 2026
-                  </span>
-                </div>
-              </div>
+              <img
+                src="/assets/photo_1.jpeg"
+                alt="Siddharth Ladda"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+              />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--background) 0%, transparent 50%)', opacity: 0.8 }} />
             </div>
+            
+            {/* Decorative background blur */}
+            <div style={{
+               position: 'absolute',
+               top: '10%',
+               right: '-10%',
+               width: '70%',
+               aspectRatio: '1',
+               borderRadius: '50%',
+               background: 'var(--accent)',
+               filter: 'blur(120px)',
+               opacity: 0.15,
+               zIndex: 1,
+            }} />
           </div>
         </div>
 
@@ -262,7 +226,18 @@ export default function Hero() {
         </div>
 
         <style>{`
-          @media (max-width: 768px) {
+          @media (max-width: 900px) {
+            .hero-split-grid {
+              grid-template-columns: 1fr !important;
+              gap: 3rem !important;
+              text-align: center;
+            }
+            .hero-split-grid > div:first-child {
+              align-items: center;
+            }
+            .hero-split-grid .hero-name {
+              font-size: clamp(3.5rem, 15vw, 5.5rem) !important;
+            }
             .featured-banner-grid {
               grid-template-columns: 1fr !important;
               gap: 1.5rem !important;
@@ -324,14 +299,15 @@ function ProjectsPreview({ navigate }: { navigate: (path: string) => void }) {
             </div>
             <h2
               style={{
-                fontFamily: 'Playfair Display, serif',
-                fontWeight: 800,
+                fontFamily: 'Space Grotesk, sans-serif',
+                fontWeight: 700,
                 fontSize: 'clamp(2rem, 4vw, 3.5rem)',
                 color: 'var(--foreground)',
                 lineHeight: 1.05,
+                letterSpacing: '-0.03em',
               }}
             >
-              Projects That Had To Work.
+              Projects that had to work.
             </h2>
           </div>
           <button
@@ -359,14 +335,13 @@ function ProjectsPreview({ navigate }: { navigate: (path: string) => void }) {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '1px',
-            background: 'var(--border)',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '2rem',
           }}
           className="project-cards-grid"
         >
-          {projects.map((p) => (
-            <ProjectCard key={p.num} project={p} />
+          {projects.map((p, i) => (
+            <ProjectCard key={p.num} project={p} index={i} />
           ))}
         </div>
       </div>
@@ -374,7 +349,11 @@ function ProjectsPreview({ navigate }: { navigate: (path: string) => void }) {
       <style>{`
         @media (max-width: 900px) {
           .project-cards-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+          }
+          .project-card-wrapper {
+            margin-top: 0 !important;
           }
         }
         @media (max-width: 600px) {
@@ -387,25 +366,33 @@ function ProjectsPreview({ navigate }: { navigate: (path: string) => void }) {
   );
 }
 
-function ProjectCard({ project }: { project: { num: string; name: string; category: string; desc: string; tech: string[]; href: string } }) {
+function ProjectCard({ project, index }: { project: { num: string; name: string; category: string; desc: string; tech: string[]; href: string }, index: number }) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <a
-      href={project.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        background: hovered ? 'var(--card)' : 'var(--background)',
-        padding: '2rem',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1rem',
-        textDecoration: 'none',
-        transition: 'background 0.25s',
-        cursor: 'pointer',
-        minHeight: '280px',
-      }}
+    <div className="project-card-wrapper" style={{ height: '100%' }}>
+      <a
+        href={project.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          background: hovered ? 'var(--card)' : 'rgba(255, 255, 255, 0.02)',
+          padding: '2rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          textDecoration: 'none',
+          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+          cursor: 'pointer',
+          minHeight: '280px',
+          height: '100%',
+          borderRadius: '1.5rem',
+          border: '1px solid var(--border)',
+          transform: hovered ? 'translateY(-8px)' : 'translateY(0)',
+          boxShadow: hovered ? '0 30px 60px rgba(0,0,0,0.5), 0 0 30px rgba(var(--accent-rgb), 0.15)' : '0 10px 30px rgba(0,0,0,0.2)',
+          zIndex: hovered ? 10 : 1,
+          position: 'relative',
+        }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -419,9 +406,10 @@ function ProjectCard({ project }: { project: { num: string; name: string; catego
       </div>
 
       <h3 style={{
-        fontFamily: 'Playfair Display, serif',
+        fontFamily: 'Space Grotesk, sans-serif',
         fontWeight: 700,
-        fontSize: '1.4rem',
+        fontSize: '1.5rem',
+        letterSpacing: '-0.02em',
         color: hovered ? 'var(--accent)' : 'var(--foreground)',
         lineHeight: 1.2,
         transition: 'color 0.25s',
@@ -453,6 +441,7 @@ function ProjectCard({ project }: { project: { num: string; name: string; catego
         Open Project <ArrowRight size={11} />
       </div>
     </a>
+    </div>
   );
 }
 /* Stats Strip

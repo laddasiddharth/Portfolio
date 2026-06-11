@@ -69,19 +69,35 @@ export default function Contact() {
         <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '1rem' }}>
           CONTACT / GET IN TOUCH
         </div>
-        <h1
-          className="reveal stagger-1"
+        <div 
           style={{
-            fontFamily: 'Playfair Display, serif',
-            fontWeight: 900,
-            fontSize: 'clamp(2.5rem, 7vw, 7rem)',
-            lineHeight: 0.95,
-            letterSpacing: '-0.03em',
-            color: 'var(--foreground)',
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '4rem',
+            alignItems: 'flex-end',
           }}
+          className="contact-header-grid"
         >
-          Let's Build<br />Something Real.
-        </h1>
+          <h1
+            className="reveal stagger-1"
+            style={{
+              fontFamily: 'Playfair Display, serif',
+              fontWeight: 900,
+              fontSize: 'clamp(2.5rem, 7vw, 7rem)',
+              lineHeight: 0.95,
+              letterSpacing: '-0.03em',
+              color: 'var(--foreground)',
+              marginBottom: 0,
+            }}
+          >
+            Let's Build<br />Something Real.
+          </h1>
+          <div className="reveal stagger-2" style={{ paddingBottom: '0.5rem' }}>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '1rem', color: 'var(--foreground)', lineHeight: 1.7, maxWidth: '30rem' }}>
+              Whether you're looking for a backend engineer to solve complex problems, a collaborator for your next ambitious project, or just want to chat about AI, I'm always open to connecting.
+            </p>
+          </div>
+        </div>
       </div>
       <div className="container-editorial" style={{ paddingTop: '4rem', maxWidth: '42rem' }}>
         <div className="reveal stagger-1">
@@ -180,6 +196,12 @@ export default function Contact() {
       </div>
 
       <style>{`
+        @media (max-width: 900px) {
+          .contact-header-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+          }
+        }
         @media (max-width: 600px) {
           .social-grid {
             grid-template-columns: 1fr !important;
