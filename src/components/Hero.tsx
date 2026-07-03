@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail, ExternalLink, FileText } from 'lucide-react';
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -86,6 +86,9 @@ export default function Hero() {
               <button onClick={() => navigate('/projects')} className="cta-button-primary">
                 View Projects <ArrowRight size={14} />
               </button>
+              <a href="/assets/Siddharth_Ladda_Resume.pdf" target="_blank" rel="noopener noreferrer" className="cta-button-secondary" style={{ textDecoration: 'none' }}>
+                <FileText size={14} style={{ marginRight: '0.4rem' }} /> Resume
+              </a>
               <div style={{ display: 'flex', gap: '1rem' }}>
                 {socialLinks.map(link => {
                   const Icon = link.icon;
@@ -137,7 +140,6 @@ export default function Hero() {
                 aspectRatio: '3/4',
                 borderRadius: '1.5rem',
                 overflow: 'hidden',
-                boxShadow: '0 30px 60px rgba(0,0,0,0.6), 0 0 40px rgba(var(--accent-rgb), 0.15)',
                 border: '1px solid var(--border)',
                 position: 'relative',
                 zIndex: 5,
@@ -148,7 +150,6 @@ export default function Hero() {
                 alt="Siddharth Ladda"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
               />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--background) 0%, transparent 50%)', opacity: 0.8 }} />
             </div>
             
             {/* Decorative background blur */}
