@@ -1,213 +1,40 @@
-import { useEffect, useRef, useState } from 'react';
-import { Copy, Check, ExternalLink, Github, Mail, Linkedin, Phone } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Mail, Github, Linkedin, Phone } from 'lucide-react';
 
 export default function Contact() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal, .reveal-left').forEach(el => el.classList.add('visible'));
-          }
-        });
-      },
-      { threshold: 0.05 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const copyEmail = () => {
-    navigator.clipboard.writeText('siddharthladda@gmail.com');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const links = [
-    {
-      icon: Github,
-      label: 'GitHub',
-      sublabel: '@laddasiddharth',
-      desc: 'Code, experiments, and unfinished systems',
-      href: 'https://github.com/laddasiddharth',
-    },
-    {
-      icon: Linkedin,
-      label: 'LinkedIn',
-      sublabel: 'siddharth-ladda',
-      desc: 'Professional profile and connections',
-      href: 'https://linkedin.com/in/siddharth-ladda',
-    },
-    {
-      icon: Mail,
-      label: 'Email',
-      sublabel: 'siddharthladda@gmail.com',
-      desc: 'Best way to reach me — usually reply same day',
-      href: 'mailto:siddharthladda@gmail.com',
-    },
-    {
-      icon: Phone,
-      label: 'Phone',
-      sublabel: '+91 99891 11900',
-      desc: 'Available during IST business hours',
-      href: 'tel:+919989111900',
-    },
-  ];
-
   return (
-    <section
-      ref={sectionRef}
-      style={{ paddingTop: 'calc(56px + 4rem)', paddingBottom: '6rem' }}
-    >
-      <div
-        className="container-editorial"
-        style={{ paddingBottom: '3rem', borderBottom: '1px solid var(--border)' }}
-      >
-        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '1rem' }}>
-          CONTACT / GET IN TOUCH
-        </div>
-        <div 
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '4rem',
-            alignItems: 'flex-end',
-          }}
-          className="contact-header-grid"
+    <section id="contact" style={{ padding: 'var(--section-gap) 0', position: 'relative' }}>
+      <div className="container" style={{ maxWidth: '800px' }}>
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          style={{ textAlign: 'center', marginBottom: '4rem' }}
         >
-          <h1
-            className="reveal stagger-1"
-            style={{
-              fontFamily: 'Playfair Display, serif',
-              fontWeight: 900,
-              fontSize: 'clamp(2.5rem, 7vw, 7rem)',
-              lineHeight: 0.95,
-              letterSpacing: '-0.03em',
-              color: 'var(--foreground)',
-              marginBottom: 0,
-            }}
-          >
-            Let's Build<br />Something Real.
-          </h1>
-          <div className="reveal stagger-2" style={{ paddingBottom: '0.5rem' }}>
-            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '1rem', color: 'var(--foreground)', lineHeight: 1.7, maxWidth: '30rem' }}>
-              Whether you're looking for a backend engineer to solve complex problems, a collaborator for your next ambitious project, or just want to chat about AI, I'm always open to connecting.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="container-editorial" style={{ paddingTop: '4rem', maxWidth: '42rem' }}>
-        <div className="reveal stagger-1">
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '1.5rem' }}>
-            FIND ME ON
-          </div>
-            <div
-              className="social-grid"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: '1rem',
-              }}
-            >
-              {links.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '1.25rem',
-                      padding: '1.5rem',
-                      background: 'var(--card)',
-                      border: '1px solid var(--border)',
-                      borderRadius: '0.75rem',
-                      textDecoration: 'none',
-                      transition: 'border-color 0.2s, background 0.2s',
-                    }}
-                    onMouseEnter={e => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.borderColor = 'var(--accent)';
-                      el.style.background = 'var(--muted)';
-                    }}
-                    onMouseLeave={e => {
-                      const el = e.currentTarget as HTMLElement;
-                      el.style.borderColor = 'var(--border)';
-                      el.style.background = 'var(--card)';
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: 48,
-                        height: 48,
-                        borderRadius: '0.5rem',
-                        background: 'rgba(var(--accent-rgb), 0.1)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'var(--accent)',
-                        flexShrink: 0,
-                      }}
-                    >
-                      <Icon size={22} />
-                    </div>
-                    <div style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: '1rem', color: 'var(--foreground)' }}>
-                      {link.label}
-                    </div>
-                  </a>
-                );
-              })}
-            </div>
-            <a
-              href="/assets/Siddharth_Ladda_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '1.25rem 1.5rem',
-                marginTop: '1.5rem',
-                background: 'transparent',
-                border: '1px solid var(--border)',
-                textDecoration: 'none',
-                transition: 'border-color 0.2s',
-              }}
-              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)')}
-              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.borderColor = 'var(--border)')}
-            >
-              <div>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem', color: 'var(--muted-foreground)', marginBottom: '0.35rem', letterSpacing: '0.08em' }}>
-                  RESUME
-                </div>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.875rem', fontWeight: 500, color: 'var(--foreground)' }}>
-                  Download PDF
-                </div>
-              </div>
-              <ExternalLink size={16} style={{ color: 'var(--muted-foreground)' }} />
-            </a>
-        </div>
-      </div>
+          <h2 className="t-heading" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '1rem' }}>
+            Ready to deploy?
+          </h2>
+          <p className="t-body" style={{ fontSize: '1.2rem' }}>
+            I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+          </p>
+        </motion.div>
 
-      <style>{`
-        @media (max-width: 900px) {
-          .contact-header-grid {
-            grid-template-columns: 1fr !important;
-            gap: 2rem !important;
-          }
-        }
-        @media (max-width: 600px) {
-          .social-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '4rem' }}
+        >
+          <a href="mailto:siddharthladda@gmail.com" className="t-body" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}><Mail size={20} /> Email</a>
+          <a href="https://github.com/laddasiddharth" target="_blank" rel="noopener noreferrer" className="t-body" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}><Github size={20} /> GitHub</a>
+          <a href="https://linkedin.com/in/siddharth-ladda" target="_blank" rel="noopener noreferrer" className="t-body" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}><Linkedin size={20} /> LinkedIn</a>
+          <a href="tel:+919989111900" className="t-body" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}><Phone size={20} /> Phone</a>
+        </motion.div>
+
+      </div>
     </section>
   );
 }

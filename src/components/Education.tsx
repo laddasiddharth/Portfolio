@@ -1,175 +1,89 @@
-import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+
+const EDU_DATA = [
+  {
+    id: '1',
+    status: 'CURRENT',
+    date: 'Aug 2023 - Jul 2027 (Expected)',
+    degree: 'Bachelor of Technology',
+    school: 'Amrita Vishwa Vidyapeetham, Coimbatore',
+    major: 'Computer Science & Engineering',
+    desc: 'Focus on software systems, distributed computing, and applied AI. Building real projects alongside coursework.'
+  },
+  {
+    id: '2',
+    status: '',
+    date: 'Jun 2021 - May 2023',
+    degree: 'Higher Secondary Education',
+    school: 'SR Edu Centre, Warangal',
+    major: 'Science Stream — Physics, Chemistry, Mathematics',
+    desc: 'Top performer in mathematics. Strong analytical foundations.'
+  },
+  {
+    id: '3',
+    status: '',
+    date: 'Jun 2020 - Apr 2021',
+    degree: 'Secondary Education',
+    school: 'Platinum Jubilee High School, Warangal',
+    major: '',
+    desc: ''
+  }
+];
 
 export default function Education() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal, .reveal-left').forEach(el => el.classList.add('visible'));
-          }
-        });
-      },
-      { threshold: 0.05 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const educationData = [
-    {
-      period: 'Aug 2023 – Jul 2027 (Expected)',
-      level: 'Bachelor of Technology',
-      institution: 'Amrita Vishwa Vidyapeetham, Coimbatore',
-      degree: 'Computer Science & Engineering',
-      note: 'Focus on software systems, distributed computing, and applied AI. Building real projects alongside coursework.',
-      current: true,
-    },
-    {
-      period: 'Jun 2021 – May 2023',
-      level: 'Higher Secondary Education',
-      institution: 'SR Edu Centre, Warangal',
-      degree: 'Science Stream — Physics, Chemistry, Mathematics',
-      note: 'Top performer in mathematics. Strong analytical foundations.',
-      current: false,
-    },
-    {
-      period: 'Jun 2020 – Apr 2021',
-      level: 'Secondary Education',
-      institution: 'Platinum Jubilee High School, Warangal',
-      degree: '',
-      note: '',
-      current: false,
-    },
-  ];
-
   return (
-    <section
-      ref={sectionRef}
-      style={{ paddingTop: 'calc(56px + 4rem)', paddingBottom: '6rem' }}
-    >
-      <div
-        className="container-editorial"
-        style={{ paddingBottom: '3rem', borderBottom: '1px solid var(--border)' }}
-      >
-        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '1rem' }}>
-          EDUCATION TIMELINE
-        </div>
-        <div 
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '4rem',
-            alignItems: 'flex-end',
-          }}
-          className="edu-header-grid"
+    <section id="education" style={{ padding: 'var(--section-gap) 0', position: 'relative' }}>
+      <div className="container" style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '6rem' }}>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
         >
-          <h1
-            className="reveal stagger-1"
-            style={{
-              fontFamily: 'Playfair Display, serif',
-              fontWeight: 900,
-              fontSize: 'clamp(3.5rem, 9vw, 8rem)',
-              lineHeight: 0.9,
-              letterSpacing: '-0.03em',
-              color: 'var(--foreground)',
-              marginBottom: 0,
-            }}
-          >
-            Academic<br />Journey
-          </h1>
-          <div className="reveal stagger-2" style={{ paddingBottom: '0.5rem' }}>
-            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '1rem', color: 'var(--foreground)', lineHeight: 1.7, maxWidth: '30rem' }}>
-              My formal educational background, focusing on computer science, software systems, and the mathematical foundations needed for building robust technology.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="container-editorial" style={{ paddingTop: '4rem' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
-          {educationData.map((item, i) => (
-            <div
-              key={i}
-              className="reveal edu-timeline-row"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '240px 1fr',
-                gap: '3rem',
-                padding: '3rem 0',
-                borderBottom: i < educationData.length - 1 ? '1px solid var(--border)' : 'none',
-                transitionDelay: `${i * 120}ms`,
-              }}
-            >
-              <div>
-                {item.current && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
-                    <div style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--accent)' }} />
-                    <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.06em' }}>
-                      CURRENT
-                    </span>
+          <h2 className="t-heading" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', marginBottom: '4rem', color: 'var(--text)', textAlign: 'center' }}>
+            Edu<span style={{ color: '#22c55e' }}>cation</span>
+          </h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+            {EDU_DATA.map((edu, idx) => (
+              <div key={idx} style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '2rem', borderTop: idx !== 0 ? '1px solid var(--border)' : 'none', paddingTop: idx !== 0 ? '3rem' : '0' }}>
+                
+                {/* Left: Dates & Status */}
+                <div style={{ gridColumn: 'span 12', '@media (minWidth: 768px)': { gridColumn: 'span 3' } } as any} className="edu-dates">
+                  {edu.status && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+                      <span style={{ position: 'relative', display: 'flex', width: 6, height: 6 }}>
+                        <span style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: '#22c55e', animation: 'pulse-ring 2s ease-out infinite' }} />
+                        <span style={{ position: 'relative', width: 6, height: 6, borderRadius: '50%', background: '#22c55e' }} />
+                      </span>
+                      <span style={{ fontFamily: "'Space Mono', monospace", fontSize: '0.75rem', color: '#22c55e', letterSpacing: '0.05em' }}>{edu.status}</span>
+                    </div>
+                  )}
+                  <div style={{ fontFamily: "'Space Mono', monospace", fontSize: '0.85rem', color: 'var(--text-tertiary)' }}>
+                    {edu.date}
                   </div>
-                )}
-                <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.75rem', color: 'var(--muted-foreground)', lineHeight: 1.6 }}>
-                  {item.period}
-                </p>
-              </div>
-              <div
-                style={{
-                  background: 'var(--card)',
-                  border: `1px solid ${item.current ? 'var(--accent)' : 'var(--border)'}`,
-                  padding: '2rem',
-                  transition: 'border-color 0.2s',
-                }}
-                onMouseEnter={e => {
-                  if (!item.current) (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)';
-                }}
-                onMouseLeave={e => {
-                  if (!item.current) (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)';
-                }}
-              >
-                <h3
-                  style={{
-                    fontFamily: 'Playfair Display, serif',
-                    fontWeight: 700,
-                    fontSize: '1.35rem',
-                    color: 'var(--foreground)',
-                    marginBottom: '0.5rem',
-                  }}
-                >
-                  {item.level}
-                </h3>
-                <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.78rem', color: 'var(--accent)', marginBottom: '0.5rem' }}>
-                  {item.institution}
-                </p>
-                {item.degree && (
-                  <p style={{ fontSize: '0.875rem', color: 'var(--muted-foreground)', marginBottom: item.note ? '0.75rem' : '0' }}>
-                    {item.degree}
-                  </p>
-                )}
-                {item.note && (
-                  <p style={{ fontSize: '0.825rem', color: 'var(--muted-foreground)', fontStyle: 'italic', lineHeight: 1.65 }}>
-                    {item.note}
-                  </p>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+                </div>
 
+                {/* Right: Details */}
+                <div style={{ gridColumn: 'span 12' }} className="edu-details">
+                  <div style={{ padding: '2rem', background: 'var(--surface)', border: edu.status === 'CURRENT' ? '1px solid var(--border)' : '1px solid transparent', borderRadius: '12px' }}>
+                    <h3 className="t-heading" style={{ fontSize: '1.5rem', color: 'var(--text)', marginBottom: '0.75rem' }}>{edu.degree}</h3>
+                    <p style={{ fontFamily: "'Space Mono', monospace", fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>{edu.school}</p>
+                    {edu.major && <p className="t-body" style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>{edu.major}</p>}
+                    {edu.desc && <p className="t-body" style={{ fontSize: '0.95rem', color: 'var(--text-tertiary)', fontStyle: 'italic' }}>{edu.desc}</p>}
+                  </div>
+                </div>
+
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
       <style>{`
-        @media (max-width: 900px) {
-          .edu-header-grid {
-            grid-template-columns: 1fr !important;
-            gap: 2rem !important;
+        @media (min-width: 768px) {
+          .edu-dates {
+            grid-column: span 3 !important;
           }
-        }
-        @media (max-width: 700px) {
-          .edu-timeline-row {
-            grid-template-columns: 1fr !important;
-            gap: 1.5rem !important;
+          .edu-details {
+            grid-column: span 9 !important;
           }
         }
       `}</style>
