@@ -37,15 +37,10 @@ export default function Hero() {
 
       {/* ── Content ── */}
       <div
-        className="container"
+        className="container responsive-hero-layout"
         style={{
           position: 'relative',
           zIndex: 10,
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '4rem',
           maxWidth: '1200px',
         }}
       >

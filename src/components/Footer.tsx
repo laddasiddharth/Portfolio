@@ -20,14 +20,14 @@ export default function Footer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '2rem', paddingBottom: '2rem' }}>
           
           {/* Left: Bio */}
-          <div style={{ gridColumn: 'span 12', '@media (minWidth: 768px)': { gridColumn: 'span 6' } } as any}>
+          <div style={{ gridColumn: 'span 12' }}>
             <h3 className="t-heading" style={{ fontSize: '1.1rem', color: 'var(--text)', margin: 0 }}>
               Siddharth Ladda
             </h3>
           </div>
 
           {/* Middle: Links */}
-          <div style={{ gridColumn: 'span 12', '@media (minWidth: 768px)': { gridColumn: 'span 3' } } as any}>
+          <div style={{ gridColumn: 'span 12' }}>
             <h4 className="t-heading" style={{ fontSize: '1.1rem', color: 'var(--text)', marginBottom: '0.75rem' }}>Links</h4>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, max-content)', gridTemplateRows: 'repeat(3, auto)', gridAutoFlow: 'column', gap: '0.5rem 2rem' }}>
               {['Home', 'About', 'Projects', 'Skills', 'Education', 'Contact'].map((item) => (
@@ -56,7 +56,7 @@ export default function Footer() {
           </div>
 
           {/* Right: Connect */}
-          <div style={{ gridColumn: 'span 12', '@media (minWidth: 768px)': { gridColumn: 'span 3' } } as any}>
+          <div style={{ gridColumn: 'span 12' }}>
             <h4 className="t-heading" style={{ fontSize: '1.1rem', color: 'var(--text)', marginBottom: '0.75rem' }}>Connect</h4>
             <div style={{ display: 'flex', gap: '1rem' }}>
               <a 

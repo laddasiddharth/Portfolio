@@ -94,7 +94,7 @@ function CinematicProject({ project, index }: { project: typeof PROJECTS[0], ind
           transition={{ duration: 0.6 }}
         >
           <span className="t-label" style={{ color: 'var(--text-secondary)' }}>{String(index + 1).padStart(2, '0')} // {project.category}</span>
-          <h3 className="t-heading" style={{ fontSize: '3rem', margin: '1rem 0' }}>{project.name}</h3>
+          <h3 className="t-heading" style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', margin: '1rem 0' }}>{project.name}</h3>
           <p className="t-body" style={{ fontSize: '1.1rem', color: 'var(--text)', marginBottom: '1rem' }}>{project.tagline}</p>
           <p className="t-body">{project.description}</p>
         </motion.div>

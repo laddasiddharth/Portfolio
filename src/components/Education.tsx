@@ -47,7 +47,7 @@ export default function Education() {
               <div key={idx} style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: '2rem', borderTop: idx !== 0 ? '1px solid var(--border)' : 'none', paddingTop: idx !== 0 ? '3rem' : '0' }}>
                 
                 {/* Left: Dates & Status */}
-                <div style={{ gridColumn: 'span 12', '@media (minWidth: 768px)': { gridColumn: 'span 3' } } as any} className="edu-dates">
+                <div style={{ gridColumn: 'span 12' }} className="edu-dates">
                   {edu.status && (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
                       <span style={{ position: 'relative', display: 'flex', width: 6, height: 6 }}>

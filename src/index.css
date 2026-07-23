@@ -236,3 +236,58 @@ body::after {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
 }
+
+/* ── Responsive Utilities ────────────────────────────────────────── */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+.responsive-hero-layout {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .responsive-hero-layout {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4rem;
+    text-align: left;
+  }
+}
+
+.responsive-flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .responsive-flex-col {
+    flex-direction: row;
+  }
+}
+
+.responsive-grid-edu {
+  grid-column: span 12;
+}
+
+@media (min-width: 768px) {
+  .responsive-grid-edu {
+    grid-column: span 3;
+  }
+}
+
+.nav-container {
+  max-width: 90vw;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.nav-container::-webkit-scrollbar {
+  display: none;
+}

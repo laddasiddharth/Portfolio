@@ -26,7 +26,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '4rem' }}
+          style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '2rem', marginTop: '4rem' }}
         >
           <a href="mailto:siddharthladda@gmail.com" className="t-body" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}><Mail size={20} /> Email</a>
           <a href="https://github.com/laddasiddharth" target="_blank" rel="noopener noreferrer" className="t-body" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}><Github size={20} /> GitHub</a>
