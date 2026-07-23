@@ -181,7 +181,14 @@ export default function Nav() {
             onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover)'}
             onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
           >
-            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            <motion.div
+              key={theme}
+              initial={{ rotate: -90, scale: 0.5, opacity: 0 }}
+              animate={{ rotate: 0, scale: 1, opacity: 1 }}
+              transition={{ duration: 0.3, type: "spring", stiffness: 200, damping: 10 }}
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </motion.div>
           </button>
 
           <button
