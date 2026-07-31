@@ -9,7 +9,7 @@ const PROJECTS = [
     category: 'SECURITY',
     tagline: 'Cross-platform password manager with zero-knowledge architecture',
     description: 'A highly secure password manager featuring true zero-knowledge architecture and client-side AES-256-GCM encryption. Includes an autofill browser extension, k-Anonymity breach detection, and a blind sync protocol to ensure your data stays completely private.',
-    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop',
+    image: '/assets/zenith.png',
     tech: ['Next.js', 'React', 'Tailwind CSS', 'Web Crypto API', 'Node.js', 'Express.js', 'MongoDB'],
     liveUrl: 'https://zero-knowledge-password-manager-frontend.onrender.com/',
     githubUrl: 'https://github.com/laddasiddharth/Zero-Knowledge-Password-Manager',
@@ -20,7 +20,7 @@ const PROJECTS = [
     category: 'DESKTOP AI',
     tagline: 'AI-powered desktop note-taking app with offline-first design',
     description: "An offline-first desktop note-taking app featuring a context-aware AI assistant powered by Google Gemini. Offers intelligent summarization, writing assistance, and built-in text-to-speech, all backed by secure local storage.",
-    image: 'https://images.unsplash.com/photo-1672834015694-81eb160868f0?q=80&w=2070&auto=format&fit=crop',
+    image: '/assets/notivos.png',
     tech: ['Electron.js', 'JavaScript', 'Node.js', 'Google Gemini API'],
     githubUrl: 'https://github.com/laddasiddharth/Notivos-AI',
   },
@@ -30,7 +30,7 @@ const PROJECTS = [
     category: 'PRIVACY',
     tagline: 'AI-assisted PII redaction correction tool',
     description: "An AI-powered PII redaction tool featuring a robust two-tier detection model. It combines Gemini's analysis with an offline heuristic fallback for maximum accuracy. Allows manual reviewer corrections, AI-generated explanations, and secure export across multiple document formats.",
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
+    image: '/assets/conseal.png',
     tech: ['Next.js', 'FastAPI (Python)', 'Google Gemini API', 'PyMuPDF', 'pdfjs-dist'],
     liveUrl: 'https://sprintfour-seven.vercel.app',
     githubUrl: 'https://github.com/laddasiddharth/sprintfour',
@@ -41,7 +41,7 @@ const PROJECTS = [
     category: 'E-COMMERCE',
     tagline: 'Full-stack MERN grocery marketplace',
     description: 'A modern MERN-stack grocery marketplace offering a complete shopping experience. Features seamless Stripe checkout, secure JWT authentication, and a dedicated seller dashboard for managing products and orders efficiently.',
-    image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=2070&auto=format&fit=crop',
+    image: '/assets/fresh-fetch.png',
     tech: ['React 19', 'Vite', 'Tailwind CSS', 'Node.js', 'Express 5', 'MongoDB (Mongoose)', 'Stripe', 'Cloudinary', 'JWT'],
     liveUrl: 'https://fresh-fetch.vercel.app',
     githubUrl: 'https://github.com/laddasiddharth/FreshFetch',
@@ -81,10 +81,10 @@ function GridProject({ project, index }: { project: typeof PROJECTS[0], index: n
         position: 'relative',
         width: '100%',
         paddingTop: '60%', 
-        overflow: 'hidden',
-        background: '#000',
+        background: 'var(--bg-elevated)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
-      }}>
+        overflow: 'hidden',
+      }} className="project-image-container">
         <img 
           src={project.image}
           alt={project.name}
@@ -94,8 +94,11 @@ function GridProject({ project, index }: { project: typeof PROJECTS[0], index: n
             left: 0,
             width: '100%',
             height: '100%',
-            objectFit: 'cover',
+            objectFit: 'contain',
+            transition: 'transform 0.5s ease',
+            display: 'block'
           }}
+          className="project-image"
         />
       </div>
 
@@ -196,6 +199,9 @@ export default function Projects() {
           .projects-grid {
             grid-template-columns: repeat(2, 1fr) !important;
           }
+        }
+        .project-card:hover .project-image {
+          transform: scale(1);
         }
       `}</style>
     </section>
