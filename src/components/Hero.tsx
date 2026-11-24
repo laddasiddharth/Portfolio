@@ -1,213 +1,73 @@
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { profile } from '@/data/profile';
+import TextLink from './ui/TextLink';
+
+const META = [
+  { key: 'Focus', value: profile.focus.join(' · ') },
+  { key: 'Currently', value: profile.currently },
+  { key: 'Status', value: profile.status, live: true },
+];
 
 export default function Hero() {
-  const navigate = useNavigate();
-
   return (
-    <section 
-      id="hero"
-      style={{
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '6rem 0 2rem',
-        overflow: 'hidden'
-      }}
-    >
-      {/* ── Minimalist Background Elements ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2, ease: "easeOut" }}
-        style={{
-          position: 'absolute',
-          top: '30%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '80vw',
-          height: '40vh',
-          background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 100%)',
-          filter: 'blur(80px)',
-          pointerEvents: 'none',
-          zIndex: 0,
-        }}
-      />
+    <section id="top" aria-labelledby="hero-title" className="pb-section pt-28 md:pt-36">
+      <div className="page grid-page gap-y-14">
+        <div className="col-span-full lg:col-span-8">
+          <p className="label">
+            {profile.role} — {profile.education}
+          </p>
 
-      {/* ── Content ── */}
-      <div
-        className="container responsive-hero-layout"
-        style={{
-          position: 'relative',
-          zIndex: 10,
-          maxWidth: '1200px',
-        }}
-      >
-        {/* Left Column: Text Content */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left', gap: '2rem' }}>
+          <h1 id="hero-title" className="mt-6 max-w-[18ch] text-display font-medium text-fg">
+            {profile.headline}
+          </h1>
 
-          {/* Main heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-            className="t-display"
-            style={{
-              fontSize: 'clamp(3rem, 6vw, 6.5rem)',
-              color: 'var(--text)',
-              lineHeight: 1,
-            }}
-          >
-            Engineering
-            <br />
-            <span style={{ color: 'var(--text-tertiary)' }}>the future.</span>
-          </motion.h1>
+          <p className="mt-8 max-w-[52ch] text-lg text-fg2">{profile.intro}</p>
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="t-body"
-            style={{
-              fontSize: 'clamp(1rem, 1.2vw, 1.2rem)',
-              maxWidth: '500px',
-            }}
-          >
-            I'm Siddharth Ladda, a software engineer obsessed with crafting highly-polished digital experiences, secure systems, and scalable backends.
-          </motion.p>
+          <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm">
+            <li>
+              <TextLink href="#work" arrow="↓">
+                Selected work
+              </TextLink>
+            </li>
+            <li>
+              <TextLink href={profile.resume} external>
+                Résumé
+              </TextLink>
+            </li>
+            <li>
+              <TextLink href={profile.github.href} external>
+                GitHub
+              </TextLink>
+            </li>
+            <li>
+              <TextLink href={`mailto:${profile.email}`}>Email</TextLink>
+            </li>
+          </ul>
+        </div>
 
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          style={{
-            display: 'flex',
-            gap: '1rem',
-            marginTop: '1rem',
-            flexWrap: 'wrap',
-            justifyContent: 'flex-start',
-          }}
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              const el = document.getElementById('projects');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-            style={{
-              padding: '0.8rem 1.8rem',
-              borderRadius: 'var(--radius-full)',
-              background: 'var(--text)',
-              color: 'var(--bg)',
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '0.95rem',
-              fontWeight: 600,
-              border: 'none',
-              cursor: 'pointer',
-              boxShadow: '0 4px 14px rgba(255, 255, 255, 0.1)',
-            }}
-          >
-            View Work
-          </motion.button>
-          
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              const el = document.getElementById('contact');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-            style={{
-              padding: '0.8rem 1.8rem',
-              borderRadius: 'var(--radius-full)',
-              background: 'var(--surface)',
-              border: '1px solid var(--border)',
-              color: 'var(--text)',
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '0.95rem',
-              fontWeight: 500,
-              cursor: 'pointer',
-              transition: 'background 0.2s, border-color 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--surface-hover)';
-              e.currentTarget.style.borderColor = 'var(--border-hover)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'var(--surface)';
-              e.currentTarget.style.borderColor = 'var(--border)';
-            }}
-          >
-            Contact
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => window.open('/assets/Siddharth_Ladda_Resume.pdf', '_blank')}
-            style={{
-              padding: '0.8rem 1.8rem',
-              borderRadius: 'var(--radius-full)',
-              background: 'var(--surface)',
-              border: '1px solid var(--border)',
-              color: 'var(--text)',
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '0.95rem',
-              fontWeight: 500,
-              cursor: 'pointer',
-              transition: 'background 0.2s, border-color 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--surface-hover)';
-              e.currentTarget.style.borderColor = 'var(--border-hover)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'var(--surface)';
-              e.currentTarget.style.borderColor = 'var(--border)';
-            }}
-          >
-            Resume
-          </motion.button>
-        </motion.div>
-        
-        </div> {/* End Left Column */}
-
-        {/* Right Column: Profile Avatar */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, x: 20 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          style={{
-            flex: 1,
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-          }}
-        >
-          <div
-            style={{
-              width: '100%',
-              maxWidth: '380px',
-              aspectRatio: '1/1',
-              borderRadius: '24px',
-              overflow: 'hidden',
-              border: '1px solid var(--border)',
-              boxShadow: 'var(--shadow-2xl)',
-              position: 'relative',
-            }}
-          >
-            <img 
-              src="/assets/photo_1.jpeg" 
-              alt="Siddharth Ladda" 
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        <figure className="col-span-full max-w-[280px] md:col-span-4 lg:col-span-3 lg:col-start-10 lg:max-w-none lg:self-end">
+          <div className="aspect-[4/5] overflow-hidden border border-border bg-surface">
+            <img
+              src={profile.photo}
+              alt={`Portrait of ${profile.name}`}
+              width={600}
+              height={750}
+              className="h-full w-full object-cover"
             />
           </div>
-        </motion.div>
+          <figcaption className="label mt-3">Fig. 01 — {profile.name}</figcaption>
+        </figure>
 
+        <dl className="col-span-full grid grid-cols-1 border-t border-border sm:grid-cols-3">
+          {META.map((m) => (
+            <div key={m.key} className="border-b border-border py-5 sm:border-b-0 sm:pr-6">
+              <dt className="label">{m.key}</dt>
+              <dd className="mt-2 flex items-center gap-2 text-sm text-fg">
+                {m.live && <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />}
+                {m.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );
