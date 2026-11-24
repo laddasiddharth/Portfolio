@@ -7,8 +7,11 @@ export default function Footer() {
         <p>
           © {new Date().getFullYear()} {profile.name} · Built with React &amp; Vite
         </p>
-        <a href="#top" className="transition-colors hover:text-fg">
-          Back to top ↑
+        <a href="#top" className="group inline-flex items-baseline gap-1.5 transition-colors hover:text-fg">
+          Back to top
+          <span aria-hidden="true" data-dir="up" className="link-arrow group-hover:text-accent">
+            ↑
+          </span>
         </a>
       </div>
     </footer>

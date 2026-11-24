@@ -9,6 +9,10 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   :root,
   [data-theme='dark'] {
     --bg: #09090b;
@@ -94,4 +98,61 @@
   .label {
     @apply font-mono text-xs uppercase tracking-label text-fg3;
   }
+
+  /* ── Links: a neutral 1px rule, with an accent rule drawn over it on hover ── */
+  .link-underline {
+    background-image: linear-gradient(var(--accent), var(--accent)),
+      linear-gradient(var(--border-strong), var(--border-strong));
+    background-size: 0% 1px, 100% 1px;
+    background-position: 0 100%, 0 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 0.15em;
+    transition: background-size 0.45s var(--ease-out);
+  }
+  .group:hover .link-underline,
+  .group:focus-visible .link-underline {
+    background-size: 100% 1px, 100% 1px;
+  }
+
+  /* Arrow glyphs nudge in the direction they point */
+  .link-arrow {
+    display: inline-block;
+    transition: transform 0.35s var(--ease-out), color 0.2s ease;
+  }
+  .group:hover .link-arrow[data-dir='ne'],
+  .group:focus-visible .link-arrow[data-dir='ne'] {
+    transform: translate(2px, -2px);
+  }
+  .group:hover .link-arrow[data-dir='down'],
+  .group:focus-visible .link-arrow[data-dir='down'] {
+    transform: translateY(3px);
+  }
+  .group:hover .link-arrow[data-dir='up'],
+  .group:focus-visible .link-arrow[data-dir='up'] {
+    transform: translateY(-3px);
+  }
+
+  /* ── Page-load entrance (hero only). Pure CSS, so nothing waits on JS. ── */
+  .enter {
+    animation: enter 0.8s var(--ease-out) both;
+    animation-delay: var(--d, 0ms);
+  }
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Theme switch: a short crossfade where View Transitions are supported */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: ease;
 }

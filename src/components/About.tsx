@@ -1,9 +1,9 @@
-import { profile } from '@/data/profile';
+import { profile, sectionMeta } from '@/data/profile';
 import Section from './ui/Section';
 
 export default function About() {
   return (
-    <Section id="about" index="02" label="About">
+    <Section {...sectionMeta('about')}>
       <p className="max-w-[40ch] text-h2 font-medium text-fg">{profile.bio}</p>
 
       <div className="mt-14 grid gap-6 md:grid-cols-9">

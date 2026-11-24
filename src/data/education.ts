@@ -3,29 +3,37 @@ export type EducationEntry = {
   date: string;
   degree: string;
   school: string;
+  location: string;
+  score: { label: string; value: string };
   major?: string;
   desc?: string;
 };
 
+// Dates, grades and names follow the resume.
 export const EDUCATION: EducationEntry[] = [
   {
     current: true,
-    date: 'Aug 2023 – Jul 2027 (Expected)',
-    degree: 'Bachelor of Technology',
-    school: 'Amrita Vishwa Vidyapeetham, Coimbatore',
-    major: 'Computer Science & Engineering',
+    date: '2023 – 2027 (Expected)',
+    degree: 'B.Tech in Computer Science and Engineering',
+    school: 'Amrita Vishwa Vidyapeetham',
+    location: 'Coimbatore, Tamil Nadu',
+    score: { label: 'CGPA', value: '7.45 / 10' },
     desc: 'Focus on software systems, distributed computing, and applied AI. Building real projects alongside coursework.',
   },
   {
-    date: 'Jun 2021 – May 2023',
-    degree: 'Higher Secondary Education',
-    school: 'SR Edu Centre, Warangal',
-    major: 'Science Stream — Physics, Chemistry, Mathematics',
+    date: '2021 – 2023',
+    degree: 'Class XII',
+    school: 'SR Edu Centre',
+    location: 'Warangal, Telangana',
+    score: { label: 'Score', value: '97.5%' },
+    major: 'MPC: Mathematics, Physics, Chemistry',
     desc: 'Top performer in mathematics. Strong analytical foundations.',
   },
   {
-    date: 'Jun 2020 – Apr 2021',
-    degree: 'Secondary Education',
-    school: 'Platinum Jubilee High School, Warangal',
+    date: '2021',
+    degree: 'Class X',
+    school: 'Platinum Jubilee High School',
+    location: 'Warangal, Telangana',
+    score: { label: 'CGPA', value: '10 / 10' },
   },
 ];
