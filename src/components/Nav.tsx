@@ -6,11 +6,12 @@ import { useActiveSection } from '@/hooks/useActiveSection';
 import { useTheme } from '@/hooks/useTheme';
 import { cn } from '@/lib/utils';
 
-const SECTION_IDS = SECTIONS.map((s) => s.id);
+// 'top' (the hero) is observed too, so no nav item stays highlighted after scrolling back up.
+const OBSERVED_IDS = ['top', ...SECTIONS.map((s) => s.id)];
 const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
-function ThemeToggle() {
-  const { theme, toggle } = useTheme();
+/** Stateless: Nav owns the theme so the desktop and mobile toggles never disagree. */
+function ThemeToggle({ theme, toggle }: ReturnType<typeof useTheme>) {
   const next = theme === 'dark' ? 'light' : 'dark';
 
   return (
@@ -37,8 +38,9 @@ function ThemeToggle() {
 }
 
 export default function Nav() {
-  const active = useActiveSection(SECTION_IDS);
+  const active = useActiveSection(OBSERVED_IDS);
   const reduce = useReducedMotion();
+  const themeState = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -51,10 +53,13 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Mobile menu: lock scroll, close on Escape, move focus into the sheet
+  // Mobile menu: lock scroll, close on Escape, move focus into the sheet, and make
+  // the page behind it inert so keyboard and screen-reader focus can't wander there.
   useEffect(() => {
     if (!open) return;
+    const behind = [document.getElementById('main'), document.querySelector('body > #root > footer')];
     document.body.style.overflow = 'hidden';
+    behind.forEach((el) => el?.setAttribute('inert', ''));
     menuRef.current?.querySelector('a')?.focus();
 
     const onKey = (e: KeyboardEvent) => {
@@ -68,6 +73,7 @@ export default function Nav() {
     window.addEventListener('resize', onResize);
     return () => {
       document.body.style.overflow = '';
+      behind.forEach((el) => el?.removeAttribute('inert'));
       window.removeEventListener('keydown', onKey);
       window.removeEventListener('resize', onResize);
     };
@@ -118,11 +124,11 @@ export default function Nav() {
               </a>
             );
           })}
-          <ThemeToggle />
+          <ThemeToggle {...themeState} />
         </nav>
 
         <div className="flex items-center gap-1 md:hidden">
-          <ThemeToggle />
+          <ThemeToggle {...themeState} />
           <button
             ref={menuButtonRef}
             type="button"

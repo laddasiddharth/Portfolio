@@ -18,7 +18,11 @@ export function useTheme() {
 
   const toggle = () => {
     const next: Theme = theme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('portfolio-theme', next);
+    try {
+      localStorage.setItem('portfolio-theme', next);
+    } catch {
+      // Storage can be blocked (privacy modes); the theme still applies for this visit.
+    }
     setTheme(next);
 
     // Crossfade the whole page where the View Transitions API exists
